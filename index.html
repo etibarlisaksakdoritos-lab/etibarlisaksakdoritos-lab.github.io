@@ -93,8 +93,6 @@
         }
         .password-box {
             margin-top: 30px;
-            animation: typewriter 0.5s forwards;
-            animation-delay: 6s;
             opacity: 0;
         }
         .password-input {
@@ -112,8 +110,7 @@
         .final-message {
             margin-top: 20px;
             font-size: 1.5rem;
-            color: #ff0000;
-            text-shadow: 0 0 15px #ff0000;
+            text-shadow: 0 0 15px #00ff00;
             animation: blink 0.8s infinite;
         }
         @media (max-width: 768px) {
@@ -139,8 +136,9 @@
         <div class="terminal" id="terminal"></div>
         <div class="password-box" id="passwordBox">
             <div>> GİRİŞ ŞİFRƏSİNİ DAXİL ET:</div>
-            <input type="password" class="password-input" id="passInput" placeholder="********" onkeypress="checkPassword(event)">
-            <div class="final-message hidden" id="finalMsg">GİRİŞ TƏSDİQLƏNDİ ✓</div>
+            <input type="text" class="password-input" id="passInput" placeholder="doritos" onkeypress="checkPassword(event)">
+            <button class="access-btn" onclick="checkPassword({type:'click'})" style="padding: 10px 20px; margin-top: 10px;">[ GİR ]</button>
+            <div class="final-message hidden" id="finalMsg"></div>
         </div>
     </div>
 
@@ -171,8 +169,12 @@
         setInterval(drawMatrix, 35);
         
         function startHack() {
-            const music = document.getElementById('bgMusic');
-            music.play().catch(e => console.log('Səs üçün klik lazımdı'));
+            try {
+                const music = document.getElementById('bgMusic');
+                music.play();
+            } catch(e) {
+                console.log('Mahnı açılmadı, amma davam edirik');
+            }
             
             document.getElementById('mainContent').classList.add('hidden');
             document.getElementById('terminalContent').classList.remove('hidden');
@@ -199,22 +201,42 @@
                     terminal.appendChild(line);
                     i++;
                     setTimeout(typeLine, 800);
+                } else {
+                    setTimeout(() => {
+                        document.getElementById('passwordBox').style.opacity = '1';
+                    }, 500);
                 }
             }
             typeLine();
         }
         
         function checkPassword(event) {
-            if (event.key === 'Enter') {
-                const pass = document.getElementById('passInput').value;
+            if (event.key === 'Enter' || event.type === 'click') {
+                const pass = document.getElementById('passInput').value.trim().toLowerCase();
+                const msg = document.getElementById('finalMsg');
+                msg.classList.remove('hidden');
                 if (pass === 'doritos') {
-                    document.getElementById('finalMsg').classList.remove('hidden');
-                    document.getElementById('finalMsg').textContent = 'GİRİŞ TƏSDİQLƏNDİ ✓ XOŞ GƏLDİN';
-                    document.getElementById('finalMsg').style.color = '#00ff00';
+                    msg.textContent = 'GİRİŞ TƏSDİQLƏNDİ ✓ XOŞ GƏLDİN QARDAŞ';
+                    msg.style.color = '#00ff00';
+                    
+                    setTimeout(() => {
+                        document.getElementById('terminalContent').innerHTML = `
+                            <div class="glitch" style="font-size: 4rem; animation: glitch 0.3s infinite;">ZIYADI BABA</div>
+                            <div class="warning" style="color: #00ff00; font-size: 1.5rem; margin-top: 30px; text-shadow: 0 0 20px #00ff00;">
+                                ✓ SİSTEM TAM SƏNİNDİ ✓
+                            </div>
+                            <div style="margin-top: 40px; font-size: 1rem; color: #00ff00; text-shadow: 0 0 10px #00ff00;">
+                                > Admin səviyyəsi: LEGENDARY<br>
+                                > Doritos Protocol: AKTİV<br>
+                                > Ziyadi Baba təsdiqlədi ✓
+                            </div>
+                        `;
+                    }, 2000);
+                    
                 } else {
-                    document.getElementById('finalMsg').classList.remove('hidden');
-                    document.getElementById('finalMsg').textContent = 'YANLIŞ ŞİFRƏ ✗';
-                    document.getElementById('finalMsg').style.color = '#ff0000';
+                    msg.textContent = 'YANLIŞ ŞİFRƏ ✗ YENİDƏN YOXLA';
+                    msg.style.color = '#ff0000';
+                    document.getElementById('passInput').value = '';
                 }
             }
         }
