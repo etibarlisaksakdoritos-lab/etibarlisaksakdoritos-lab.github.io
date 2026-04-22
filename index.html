@@ -7,11 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background: #000;
@@ -92,9 +88,7 @@
             box-shadow: 0 0 40px #00ff00;
         }
         
-        .hidden {
-            display: none;
-        }
+        .hidden { display: none; }
         
         .terminal {
             text-align: left;
@@ -112,6 +106,34 @@
             to { opacity: 1; }
         }
         
+        .password-box {
+            margin-top: 30px;
+            animation: typewriter 0.5s forwards;
+            animation-delay: 6s;
+            opacity: 0;
+        }
+        
+        .password-input {
+            background: #000;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 10px 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            box-shadow: 0 0 15px #00ff00;
+            margin: 10px;
+        }
+        
+        .final-message {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #ff0000;
+            text-shadow: 0 0 15px #ff0000;
+            animation: blink 0.8s infinite;
+        }
+        
         @media (max-width: 768px) {
             .glitch { font-size: 2rem; }
             .warning { font-size: 1rem; }
@@ -122,7 +144,7 @@
     <canvas id="matrix"></canvas>
     
     <audio id="bgMusic" loop>
-        <source src="./nazar.mp4" type="audio/mpeg">
+        <source src="./nazar.mp4" type="audio/mp4">
     </audio>
     
     <div class="content" id="mainContent">
@@ -133,51 +155,42 @@
     
     <div class="content hidden" id="terminalContent">
         <div class="terminal" id="terminal"></div>
+        <div class="password-box" id="passwordBox">
+            <div>> GİRİŞ ŞİFRƏSİNİ DAXİL ET:</div>
+            <input type="password" class="password-input" id="passInput" placeholder="********" onkeypress="checkPassword(event)">
+            <div class="final-message hidden" id="finalMsg">GİRİŞ TƏSDİQLƏNDİ ✓</div>
+        </div>
     </div>
 
     <script>
-        // Matrix efekti
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
-        
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        
         const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
         const matrixArray = matrix.split("");
-        
         const fontSize = 10;
         const columns = canvas.width / fontSize;
         const drops = [];
-        
-        for(let x = 0; x < columns; x++) {
-            drops[x] = 1;
-        }
+        for(let x = 0; x < columns; x++) drops[x] = 1;
         
         function drawMatrix() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
             ctx.fillStyle = '#00ff00';
             ctx.font = fontSize + 'px monospace';
-            
             for(let i = 0; i < drops.length; i++) {
                 const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                
-                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
         }
-        
         setInterval(drawMatrix, 35);
         
-        // Hack animasiyası
         function startHack() {
             const music = document.getElementById('bgMusic');
-            music.play();
+            music.play().catch(e => console.log('Səs üçün klik lazımdı'));
             
             document.getElementById('mainContent').classList.add('hidden');
             document.getElementById('terminalContent').classList.remove('hidden');
@@ -207,6 +220,20 @@
                 }
             }
             typeLine();
+        }
+        
+        function checkPassword(event) {
+            if (event.key === 'Enter') {
+                const pass = document.getElementById('passInput').value;
+                if (pass === 'doritos') {
+                    document.getElementById('finalMsg').classList.remove('hidden');
+                    document.getElementById('finalMsg').textContent = 'GİRİŞ TƏSDİQLƏNDİ ✓ XOŞ GƏLDİN';
+                } else {
+                    document.getElementById('finalMsg').classList.remove('hidden');
+                    document.getElementById('finalMsg').textContent = 'YANLIŞ ŞİFRƏ ✗';
+                    document.getElementById('finalMsg').style.color = '#ff0000';
+                }
+            }
         }
         
         window.addEventListener('resize', () => {
