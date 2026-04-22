@@ -6,9 +6,7 @@
     <title>SİSTEMƏ SIZILIR...</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             background: #000;
             color: #00ff00;
@@ -17,7 +15,6 @@
             height: 100vh;
             cursor: crosshair;
         }
-        
         #matrix {
             position: fixed;
             top: 0;
@@ -26,7 +23,6 @@
             height: 100%;
             z-index: 1;
         }
-        
         .content {
             position: relative;
             z-index: 10;
@@ -38,7 +34,6 @@
             text-align: center;
             padding: 20px;
         }
-        
         .glitch {
             font-size: 3rem;
             font-weight: 900;
@@ -46,7 +41,6 @@
             text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
             animation: glitch 2s infinite;
         }
-        
         @keyframes glitch {
             0%, 100% { transform: translate(0); }
             20% { transform: translate(-2px, 2px); }
@@ -54,7 +48,6 @@
             60% { transform: translate(2px, 2px); }
             80% { transform: translate(2px, -2px); }
         }
-        
         .warning {
             font-size: 1.2rem;
             margin: 20px 0;
@@ -62,12 +55,10 @@
             text-shadow: 0 0 10px #ff0000;
             animation: blink 1s infinite;
         }
-        
         @keyframes blink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
-        
         .access-btn {
             background: transparent;
             border: 2px solid #00ff00;
@@ -81,38 +72,31 @@
             box-shadow: 0 0 20px #00ff00;
             margin-top: 20px;
         }
-        
         .access-btn:hover {
             background: #00ff00;
             color: #000;
             box-shadow: 0 0 40px #00ff00;
         }
-        
         .hidden { display: none; }
-        
         .terminal {
             text-align: left;
             font-size: 0.9rem;
             line-height: 1.6;
             max-width: 600px;
         }
-        
         .terminal-line {
             opacity: 0;
             animation: typewriter 0.5s forwards;
         }
-        
         @keyframes typewriter {
             to { opacity: 1; }
         }
-        
         .password-box {
             margin-top: 30px;
             animation: typewriter 0.5s forwards;
             animation-delay: 6s;
             opacity: 0;
         }
-        
         .password-input {
             background: #000;
             border: 2px solid #00ff00;
@@ -125,7 +109,6 @@
             box-shadow: 0 0 15px #00ff00;
             margin: 10px;
         }
-        
         .final-message {
             margin-top: 20px;
             font-size: 1.5rem;
@@ -133,7 +116,6 @@
             text-shadow: 0 0 15px #ff0000;
             animation: blink 0.8s infinite;
         }
-        
         @media (max-width: 768px) {
             .glitch { font-size: 2rem; }
             .warning { font-size: 1rem; }
@@ -144,7 +126,7 @@
     <canvas id="matrix"></canvas>
     
     <audio id="bgMusic" loop>
-        <source src="./nazar.mp4" type="audio/mp4">
+        <source src="./nazar.mp3" type="audio/mpeg">
     </audio>
     
     <div class="content" id="mainContent">
@@ -228,6 +210,7 @@
                 if (pass === 'doritos') {
                     document.getElementById('finalMsg').classList.remove('hidden');
                     document.getElementById('finalMsg').textContent = 'GİRİŞ TƏSDİQLƏNDİ ✓ XOŞ GƏLDİN';
+                    document.getElementById('finalMsg').style.color = '#00ff00';
                 } else {
                     document.getElementById('finalMsg').classList.remove('hidden');
                     document.getElementById('finalMsg').textContent = 'YANLIŞ ŞİFRƏ ✗';
