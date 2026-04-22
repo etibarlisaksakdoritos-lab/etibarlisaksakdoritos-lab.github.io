@@ -15,8 +15,7 @@
         }
         #matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         #mouseTrail { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-
-    .login-screen {
+   .login-screen {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
@@ -27,19 +26,19 @@
             z-index: 100;
             flex-direction: column;
         }
-    .login-box {
+   .login-box {
             border: 2px solid #00ff00;
             padding: 40px;
             box-shadow: 0 0 20px #00ff00;
             text-align: center;
             background: #0d1117;
         }
-    .login-title {
+   .login-title {
             font-size: 1.5rem;
             margin-bottom: 20px;
             text-shadow: 0 0 10px #00ff00;
         }
-    .login-input {
+   .login-input {
             background: transparent;
             border: 1px solid #00ff00;
             color: #00ff00;
@@ -50,8 +49,8 @@
             width: 250px;
             text-align: center;
         }
-    .login-input:focus { outline: none; box-shadow: 0 0 10px #00ff00; }
-    .login-btn {
+   .login-input:focus { outline: none; box-shadow: 0 0 10px #00ff00; }
+   .login-btn {
             background: transparent;
             border: 2px solid #00ff00;
             color: #00ff00;
@@ -60,15 +59,14 @@
             cursor: pointer;
             text-shadow: 0 0 5px #00ff00;
         }
-    .login-btn:hover { background: rgba(0, 255, 0, 0.1); }
-    .error-msg {
+   .login-btn:hover { background: rgba(0, 255, 0, 0.1); }
+   .error-msg {
             color: #ff0000;
             margin-top: 10px;
             text-shadow: 0 0 5px #ff0000;
             min-height: 20px;
         }
-
-    .content {
+   .content {
             position: relative;
             z-index: 1;
             min-height: 100vh;
@@ -80,7 +78,7 @@
             padding: 20px;
             background: rgba(13, 17, 23, 0.4);
         }
-    .logo {
+   .logo {
             font-size: 4rem;
             font-weight: bold;
             color: #00ff00;
@@ -94,10 +92,10 @@
             25% { text-shadow: -2px 0 red, 2px 0 cyan; }
             50% { text-shadow: 2px 0 red, -2px 0 cyan; }
         }
-    .tagline { font-size: 1.2rem; margin-bottom: 10px; text-shadow: 0 0 5px #00ff00; }
-    .subtext { font-size: 1rem; color: #00cc00; margin-bottom: 15px; min-height: 20px; }
-    .terminal { font-size: 0.9rem; margin-bottom: 30px; text-align: left; width: 300px; }
-    .terminal span { color: #ff0000; }
+   .tagline { font-size: 1.2rem; margin-bottom: 10px; text-shadow: 0 0 5px #00ff00; }
+   .subtext { font-size: 1rem; color: #00cc00; margin-bottom: 15px; min-height: 20px; }
+   .terminal { font-size: 0.9rem; margin-bottom: 30px; text-align: left; width: 300px; }
+   .terminal span { color: #ff0000; }
         #playBtn {
             background: transparent;
             border: 2px solid #00ff00;
@@ -125,7 +123,6 @@
         <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- LOGIN EKRANI -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
             <div class="login-title">DORITOS LAB SECURE ACCESS</div>
@@ -137,7 +134,6 @@
         </div>
     </div>
 
-    <!-- ƏSAS KONTENT -->
     <div class="content" id="mainContent">
         <div class="logo">DORITOS LAB</div>
         <div class="tagline">Kod. Yaradıcılıq. İnqilab.</div>
@@ -152,7 +148,6 @@
     </div>
 
     <script>
-        // MATRIX YAĞIŞI
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -183,7 +178,6 @@
         }
         setInterval(draw, 35);
 
-        // MOUSE İZİ
         const trailCanvas = document.getElementById('mouseTrail');
         const trailCtx = trailCanvas.getContext('2d');
         trailCanvas.width = window.innerWidth;
@@ -206,8 +200,7 @@
         }
         drawTrail();
 
-        // ŞİFRƏ SİSTEMİ
-        const password = 'Doritos'; // ŞİFRƏ: Doritos - böyük D ilə
+        const password = 'Doritos';
         const loginScreen = document.getElementById('loginScreen');
         const mainContent = document.getElementById('mainContent');
         const passInput = document.getElementById('passInput');
@@ -231,7 +224,6 @@
         loginBtn.addEventListener('click', checkPassword);
         passInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') checkPassword(); });
 
-        // SİSTEM BAŞLAYIR
         function startSystem() {
             const text = "Sistemə xoş gəldin, Neo.";
             let i = 0;
@@ -250,10 +242,24 @@
             }, 1500);
         }
 
-        // MUSİQİ DÜYMƏSİ
         const playBtn = document.getElementById('playBtn');
         const bgMusic = document.getElementById('bgMusic');
         playBtn.addEventListener('click', () => {
             if (bgMusic.paused) {
                 bgMusic.play();
-                playBtn.textContent = '[ Sİ
+                playBtn.textContent = '[ SİSTEMDƏN ÇIX ]';
+            } else {
+                bgMusic.pause();
+                playBtn.textContent = '[ SİSTEMƏ SIZ ]';
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            trailCanvas.width = window.innerWidth;
+            trailCanvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
