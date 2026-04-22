@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="az">
 <head>
-    <title>Doritos Lab HQ</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DORITOS LAB</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             background: #0d1117;
             color: #00ff00;
             font-family: 'Courier New', monospace;
-            text-align: center;
-            margin: 0;
             overflow: hidden;
+            min-height: 100vh;
         }
         #matrix {
             position: fixed;
@@ -19,55 +23,62 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(13, 17, 23, 0.4);
+            z-index: -1;
         }
        .content {
             position: relative;
             z-index: 1;
-            padding-top: 80px;
-            background: rgba(13, 17, 23, 0.85);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: rgba(13, 17, 23, 0.4);
         }
-        h1 {
-            font-size: 40px;
-            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-            margin: 20px 0;
+       .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+            margin-bottom: 20px;
+            letter-spacing: 5px;
         }
-        p {
-            font-size: 18px;
+       .tagline {
+            font-size: 1.2rem;
+            color: #00ff00;
             text-shadow: 0 0 5px #00ff00;
-            margin: 10px 0;
+            margin-bottom: 10px;
         }
-        img {
-            border: 2px solid #00ff00;
-            border-radius: 15px;
-            margin: 20px 0;
-            box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
-            width: 200px;
+       .subtext {
+            font-size: 1rem;
+            color: #00cc00;
+            opacity: 0.8;
         }
-    function draw() {
-    ctx.fillStyle = 'rgba(13, 17, 23, 0.02)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height 
-        ctx.fillStyle = 'rgba(13, 17, 23, 0.02)';
-    ctx.font = fontSize + 'px monospace';
-    for(let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        <p>MEN TANIYAN TANIYIR UREYLERR</p>
-        <p>TEZEYEM</p>
-        <p>BRATVALARA SALAM</p>
-        <p>BABAPUROYUZZ</p>
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    <div class="content">
+        <div class="logo">DORITOS LAB</div>
+        <div class="tagline">Kod. Yaradıcılıq. İnqilab.</div>
+        <div class="subtext">Sistemə qoşuldun, Neo.</div>
     </div>
     <script>
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
-        canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         const letters = '01DORITOSLABアカサタナハマヤラワ';
         const fontSize = 14;
         const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
         function draw() {
-            ctx.fillStyle = 'rgba(13, 17, 23, 0.05)';
+            ctx.fillStyle = 'rgba(13, 17, 23, 0.02)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = '#00ff00';
             ctx.font = fontSize + 'px monospace';
@@ -82,8 +93,8 @@
         }
         setInterval(draw, 35);
         window.addEventListener('resize', () => {
-            canvas.height = window.innerHeight;
             canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         });
     </script>
 </body>
