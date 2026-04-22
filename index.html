@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DORITOS LAB // SECURE ACCESS</title>
+    <title>DORITOS LAB // SECURE LOGIN</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -13,17 +13,66 @@
             overflow: hidden;
             min-height: 100vh;
         }
-        #matrix {
+        #matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        #mouseTrail { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+    .login-screen {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: -1;
+            background: rgba(13, 17, 23, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            flex-direction: column;
         }
-      .content {
+    .login-box {
+            border: 2px solid #00ff00;
+            padding: 40px;
+            box-shadow: 0 0 20px #00ff00;
+            text-align: center;
+            background: #0d1117;
+        }
+    .login-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+    .login-input {
+            background: transparent;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            width: 250px;
+            text-align: center;
+        }
+    .login-input:focus { outline: none; box-shadow: 0 0 10px #00ff00; }
+    .login-btn {
+            background: transparent;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 10px 25px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            text-shadow: 0 0 5px #00ff00;
+        }
+    .login-btn:hover { background: rgba(0, 255, 0, 0.1); }
+    .error-msg {
+            color: #ff0000;
+            margin-top: 10px;
+            text-shadow: 0 0 5px #ff0000;
+            min-height: 20px;
+        }
+
+    .content {
             position: relative;
             z-index: 1;
             min-height: 100vh;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -31,42 +80,24 @@
             padding: 20px;
             background: rgba(13, 17, 23, 0.4);
         }
-      .logo {
+    .logo {
             font-size: 4rem;
             font-weight: bold;
             color: #00ff00;
-            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
             margin-bottom: 20px;
             letter-spacing: 5px;
             animation: glitch 2s infinite;
         }
         @keyframes glitch {
-            0%, 100% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
+            0%, 100% { text-shadow: 0 0 10px #00ff00; }
             25% { text-shadow: -2px 0 red, 2px 0 cyan; }
             50% { text-shadow: 2px 0 red, -2px 0 cyan; }
-            75% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
         }
-      .tagline {
-            font-size: 1.2rem;
-            color: #00ff00;
-            text-shadow: 0 0 5px #00ff00;
-            margin-bottom: 10px;
-        }
-      .subtext {
-            font-size: 1rem;
-            color: #00cc00;
-            opacity: 0.8;
-            margin-bottom: 15px;
-            min-height: 20px;
-        }
-       .terminal {
-            font-size: 0.9rem;
-            color: #00ff00;
-            margin-bottom: 30px;
-            text-align: left;
-            width: 300px;
-        }
-       .terminal span { color: #ff0000; }
+    .tagline { font-size: 1.2rem; margin-bottom: 10px; text-shadow: 0 0 5px #00ff00; }
+    .subtext { font-size: 1rem; color: #00cc00; margin-bottom: 15px; min-height: 20px; }
+    .terminal { font-size: 0.9rem; margin-bottom: 30px; text-align: left; width: 300px; }
+    .terminal span { color: #ff0000; }
         #playBtn {
             background: transparent;
             border: 2px solid #00ff00;
@@ -76,44 +107,61 @@
             font-family: 'Courier New', monospace;
             cursor: pointer;
             text-shadow: 0 0 5px #00ff00;
-            box-shadow: 0 0 10px #00ff00, inset 0 0 10px rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 10px #00ff00;
             transition: all 0.3s;
-        }
-        #playBtn:hover {
-            background: rgba(0, 255, 0, 0.1);
-            box-shadow: 0 0 20px #00ff00, inset 0 0 20px rgba(0, 255, 0, 0.2);
         }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
+    <canvas id="mouseTrail"></canvas>
     <audio id="bgMusic" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
     </audio>
-    <div class="content">
+    <audio id="accessSound">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2c1a2f5c7a.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="deniedSound">
+        <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- LOGIN EKRANI -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <div class="login-title">DORITOS LAB SECURE ACCESS</div>
+            <div>> ENTER PASSWORD:</div>
+            <input type="password" class="login-input" id="passInput" placeholder="_">
+            <br>
+            <button class="login-btn" id="loginBtn">[ AUTHENTICATE ]</button>
+            <div class="error-msg" id="errorMsg"></div>
+        </div>
+    </div>
+
+    <!-- ƏSAS KONTENT -->
+    <div class="content" id="mainContent">
         <div class="logo">DORITOS LAB</div>
         <div class="tagline">Kod. Yaradıcılıq. İnqilab.</div>
         <div class="subtext" id="typeText"></div>
         <div class="terminal">
             > IP: <span id="fakeIp">127.0.0.1</span><br>
             > STATUS: <span id="status">AŞKARLANIR...</span><br>
-            > ACCESS: <span id="access">GÖZLƏNİLİR</span>
+            > ACCESS: <span id="access">GRANTED</span><br>
+            > USER: <span>NEO</span>
         </div>
         <button id="playBtn">[ SİSTEMƏ SIZ ]</button>
     </div>
+
     <script>
+        // MATRIX YAĞIŞI
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        const letters = '01DORITOSLABアカサタナハマヤラワ█▓▒░';
+        const letters = '01DORITOSLABアカサタナ█▓▒░';
         const fontSize = 14;
         const columns = canvas.width / fontSize;
         const drops = [];
-        for(let x = 0; x < columns; x++) {
-            drops[x] = 1;
-        }
-
+        for(let x = 0; x < columns; x++) { drops[x] = 1; }
         let matrixColor = '#00ff00';
         const colors = ['#00ff00', '#00ccff', '#ff0066', '#ffaa00'];
         let colorIndex = 0;
@@ -121,7 +169,6 @@
             colorIndex = (colorIndex + 1) % colors.length;
             matrixColor = colors[colorIndex];
         }, 10000);
-
         function draw() {
             ctx.fillStyle = 'rgba(13, 17, 23, 0.02)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -130,43 +177,78 @@
             for(let i = 0; i < drops.length; i++) {
                 const text = letters[Math.floor(Math.random() * letters.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; }
                 drops[i]++;
             }
         }
         setInterval(draw, 35);
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
 
-        // YAZI MAŞINI EFFEKTİ
-        const text = "Sistemə qoşuldun, Neo.";
-        let i = 0;
-        function typeWriter() {
-            if (i < text.length) {
-                document.getElementById("typeText").innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 80);
+        // MOUSE İZİ
+        const trailCanvas = document.getElementById('mouseTrail');
+        const trailCtx = trailCanvas.getContext('2d');
+        trailCanvas.width = window.innerWidth;
+        trailCanvas.height = window.innerHeight;
+        let trails = [];
+        document.addEventListener('mousemove', (e) => {
+            trails.push({x: e.clientX, y: e.clientY, life: 20});
+        });
+        function drawTrail() {
+            trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+            trailCtx.fillStyle = '#00ff00';
+            trailCtx.font = '14px monospace';
+            trails.forEach((t, i) => {
+                trailCtx.globalAlpha = t.life / 20;
+                trailCtx.fillText(letters[Math.floor(Math.random() * letters.length)], t.x, t.y);
+                t.life--;
+                if(t.life <= 0) trails.splice(i, 1);
+            });
+            requestAnimationFrame(drawTrail);
+        }
+        drawTrail();
+
+        // ŞİFRƏ SİSTEMİ
+        const password = 'Doritos'; // ŞİFRƏ: Doritos - böyük D ilə
+        const loginScreen = document.getElementById('loginScreen');
+        const mainContent = document.getElementById('mainContent');
+        const passInput = document.getElementById('passInput');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        const accessSound = document.getElementById('accessSound');
+        const deniedSound = document.getElementById('deniedSound');
+
+        function checkPassword() {
+            if(passInput.value === password) {
+                accessSound.play();
+                loginScreen.style.display = 'none';
+                mainContent.style.display = 'flex';
+                startSystem();
+            } else {
+                deniedSound.play();
+                errorMsg.textContent = 'ACCESS DENIED';
+                passInput.value = '';
             }
         }
-        setTimeout(typeWriter, 1000);
+        loginBtn.addEventListener('click', checkPassword);
+        passInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') checkPassword(); });
 
-        // SAXTA IP + ACCESS
-        const fakeIp = document.getElementById('fakeIp');
-        const status = document.getElementById('status');
-        const access = document.getElementById('access');
-        setTimeout(() => {
-            fakeIp.textContent = '192.168.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255);
-            status.textContent = 'TƏSDİQLƏNDİ';
-            status.style.color = '#00ff00';
-        }, 2000);
-        setTimeout(() => {
-            access.textContent = 'GRANTED';
-            access.style.color = '#00ff00';
-        }, 3500);
+        // SİSTEM BAŞLAYIR
+        function startSystem() {
+            const text = "Sistemə xoş gəldin, Neo.";
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    document.getElementById("typeText").innerHTML += text.charAt(i);
+                    i++; setTimeout(typeWriter, 80);
+                }
+            }
+            setTimeout(typeWriter, 500);
+
+            setTimeout(() => {
+                document.getElementById('fakeIp').textContent = '192.168.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255);
+                document.getElementById('status').textContent = 'TƏSDİQLƏNDİ';
+                document.getElementById('status').style.color = '#00ff00';
+            }, 1500);
+        }
 
         // MUSİQİ DÜYMƏSİ
         const playBtn = document.getElementById('playBtn');
@@ -174,12 +256,4 @@
         playBtn.addEventListener('click', () => {
             if (bgMusic.paused) {
                 bgMusic.play();
-                playBtn.textContent = '[ SİSTEMDƏN ÇIX ]';
-            } else {
-                bgMusic.pause();
-                playBtn.textContent = '[ SİSTEMƏ SIZ ]';
-            }
-        });
-    </script>
-</body>
-</html>
+                playBtn.textContent = '[ Sİ
