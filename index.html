@@ -124,7 +124,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.85);
+            text-align: center;
+            padding: 20px;
         }
         .music-btn {
             margin-top: 30px;
@@ -256,12 +258,14 @@
                     msg.style.color = '#00ff00';
 
                     setTimeout(() => {
+                        // KÖHNƏ CONTENTİ GİZLƏT - qarışmasın
+                        document.getElementById('mainContent').classList.add('hidden');
+                        document.getElementById('terminalContent').classList.add('hidden');
+                        // ZIYADI BABA GÖSTƏR
                         document.getElementById('ziyadiScreen').style.display = 'flex';
                         // Mahnını zorla başlat
                         const music = document.getElementById('bgMusic');
-                        music.play().catch(e => {
-                            console.log('Auto play bloklandı - düymə çıxacaq');
-                        });
+                        music.play().catch(e => console.log('Auto play bloklandı'));
                     }, 1000);
 
                 } else {
