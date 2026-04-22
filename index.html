@@ -45,13 +45,13 @@
             box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
             width: 200px;
         }
-    </style>
-</head>
-<body>
+    function draw() {
     ctx.fillStyle = 'rgba(13, 17, 23, 0.02)';
-    <div class="content">
-        <img src="IMG-20260422-WA0011.jpg" alt="Doritos Lab Logo">
-        <h1>🖥️ KALEMINIZI KIRDIM OLMM</h1>
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff00';
+    ctx.font = fontSize + 'px monospace';
+    for(let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
         <p>MEN TANIYAN TANIYIR UREYLERR</p>
         <p>TEZEYEM</p>
         <p>BRATVALARA SALAM</p>
