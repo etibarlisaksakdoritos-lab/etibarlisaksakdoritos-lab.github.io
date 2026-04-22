@@ -72,7 +72,7 @@
             box-shadow: 0 0 20px #00ff00;
             margin-top: 20px;
         }
-        .access-btn:hover {
+        .access-btn:hover, .access-btn:active {
             background: #00ff00;
             color: #000;
             box-shadow: 0 0 40px #00ff00;
@@ -124,11 +124,17 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: transparent;
-            pointer-events: none;
+            background: rgba(0,0,0,0.3);
         }
-        #ziyadiScreen > * {
-            pointer-events: auto;
+        .music-btn {
+            margin-top: 30px;
+            padding: 10px 30px;
+            background: transparent;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00ff00;
         }
         @media (max-width: 768px) {
             .glitch { font-size: 2rem; }
@@ -167,6 +173,7 @@
             > Doritos Protocol: AKTİV<br>
             > Ziyadi Baba təsdiqlədi ✓
         </div>
+        <button class="music-btn" onclick="forceMusic()">[ MAHNINI BAŞLAT ]</button>
     </div>
 
     <script>
@@ -195,9 +202,14 @@
         }
         setInterval(drawMatrix, 35);
         
+        function forceMusic() {
+            const music = document.getElementById('bgMusic');
+            music.play();
+        }
+        
         function startHack() {
             const music = document.getElementById('bgMusic');
-            music.play().catch(e => console.log('Mahnı autoplay bloklandı'));
+            music.play().catch(e => console.log('İlk play bloklandı'));
             
             document.getElementById('mainContent').classList.add('hidden');
             document.getElementById('terminalContent').classList.remove('hidden');
@@ -244,14 +256,12 @@
                     msg.style.color = '#00ff00';
 
                     setTimeout(() => {
-                        // Köhnə contenti gizlətmirəm - sadəcə üstünə çıxıram
                         document.getElementById('ziyadiScreen').style.display = 'flex';
-                        
-                        // Mahnının getdiyinə əmin ol
+                        // Mahnını zorla başlat
                         const music = document.getElementById('bgMusic');
-                        if (music.paused) {
-                            music.play().catch(e => console.log('Mahnı davam etmir'));
-                        }
+                        music.play().catch(e => {
+                            console.log('Auto play bloklandı - düymə çıxacaq');
+                        });
                     }, 1000);
 
                 } else {
