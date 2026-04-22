@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DORITOS LAB</title>
+    <title>DORITOS LAB // SECURE ACCESS</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -19,7 +19,7 @@
             width: 100%; height: 100%;
             z-index: -1;
         }
-       .content {
+      .content {
             position: relative;
             z-index: 1;
             min-height: 100vh;
@@ -31,26 +31,42 @@
             padding: 20px;
             background: rgba(13, 17, 23, 0.4);
         }
-       .logo {
+      .logo {
             font-size: 4rem;
             font-weight: bold;
             color: #00ff00;
             text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
             margin-bottom: 20px;
             letter-spacing: 5px;
+            animation: glitch 2s infinite;
         }
-       .tagline {
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
+            25% { text-shadow: -2px 0 red, 2px 0 cyan; }
+            50% { text-shadow: 2px 0 red, -2px 0 cyan; }
+            75% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
+        }
+      .tagline {
             font-size: 1.2rem;
             color: #00ff00;
             text-shadow: 0 0 5px #00ff00;
             margin-bottom: 10px;
         }
-       .subtext {
+      .subtext {
             font-size: 1rem;
             color: #00cc00;
             opacity: 0.8;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
+            min-height: 20px;
         }
+       .terminal {
+            font-size: 0.9rem;
+            color: #00ff00;
+            margin-bottom: 30px;
+            text-align: left;
+            width: 300px;
+        }
+       .terminal span { color: #ff0000; }
         #playBtn {
             background: transparent;
             border: 2px solid #00ff00;
@@ -67,9 +83,6 @@
             background: rgba(0, 255, 0, 0.1);
             box-shadow: 0 0 20px #00ff00, inset 0 0 20px rgba(0, 255, 0, 0.2);
         }
-        #playBtn:active {
-            transform: scale(0.95);
-        }
     </style>
 </head>
 <body>
@@ -80,25 +93,39 @@
     <div class="content">
         <div class="logo">DORITOS LAB</div>
         <div class="tagline">Kod. Yaradıcılıq. İnqilab.</div>
-        <div class="subtext">Sistemə qoşuldun, Neo.</div>
-        <button id="playBtn">[ SİSTEMƏ QOŞUL ]</button>
+        <div class="subtext" id="typeText"></div>
+        <div class="terminal">
+            > IP: <span id="fakeIp">127.0.0.1</span><br>
+            > STATUS: <span id="status">AŞKARLANIR...</span><br>
+            > ACCESS: <span id="access">GÖZLƏNİLİR</span>
+        </div>
+        <button id="playBtn">[ SİSTEMƏ SIZ ]</button>
     </div>
     <script>
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        const letters = '01DORITOSLABアカサタナハマヤラワ';
+        const letters = '01DORITOSLABアカサタナハマヤラワ█▓▒░';
         const fontSize = 14;
         const columns = canvas.width / fontSize;
         const drops = [];
         for(let x = 0; x < columns; x++) {
             drops[x] = 1;
         }
+
+        let matrixColor = '#00ff00';
+        const colors = ['#00ff00', '#00ccff', '#ff0066', '#ffaa00'];
+        let colorIndex = 0;
+        setInterval(() => {
+            colorIndex = (colorIndex + 1) % colors.length;
+            matrixColor = colors[colorIndex];
+        }, 10000);
+
         function draw() {
             ctx.fillStyle = 'rgba(13, 17, 23, 0.02)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00ff00';
+            ctx.fillStyle = matrixColor;
             ctx.font = fontSize + 'px monospace';
             for(let i = 0; i < drops.length; i++) {
                 const text = letters[Math.floor(Math.random() * letters.length)];
@@ -115,6 +142,32 @@
             canvas.height = window.innerHeight;
         });
 
+        // YAZI MAŞINI EFFEKTİ
+        const text = "Sistemə qoşuldun, Neo.";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typeText").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 80);
+            }
+        }
+        setTimeout(typeWriter, 1000);
+
+        // SAXTA IP + ACCESS
+        const fakeIp = document.getElementById('fakeIp');
+        const status = document.getElementById('status');
+        const access = document.getElementById('access');
+        setTimeout(() => {
+            fakeIp.textContent = '192.168.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255);
+            status.textContent = 'TƏSDİQLƏNDİ';
+            status.style.color = '#00ff00';
+        }, 2000);
+        setTimeout(() => {
+            access.textContent = 'GRANTED';
+            access.style.color = '#00ff00';
+        }, 3500);
+
         // MUSİQİ DÜYMƏSİ
         const playBtn = document.getElementById('playBtn');
         const bgMusic = document.getElementById('bgMusic');
@@ -124,7 +177,7 @@
                 playBtn.textContent = '[ SİSTEMDƏN ÇIX ]';
             } else {
                 bgMusic.pause();
-                playBtn.textContent = '[ SİSTEMƏ QOŞUL ]';
+                playBtn.textContent = '[ SİSTEMƏ SIZ ]';
             }
         });
     </script>
