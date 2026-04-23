@@ -113,31 +113,6 @@
             text-shadow: 0 0 15px #00ff00;
             animation: blink 0.8s infinite;
         }
-        #ziyadiScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 999;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0,0,0,0.85);
-            text-align: center;
-            padding: 20px;
-        }
-        .music-btn {
-            margin-top: 30px;
-            padding: 10px 30px;
-            background: transparent;
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            font-family: 'Orbitron', monospace;
-            cursor: pointer;
-            box-shadow: 0 0 15px #00ff00;
-        }
         @media (max-width: 768px) {
             .glitch { font-size: 2rem; }
             .warning { font-size: 1rem; }
@@ -151,31 +126,22 @@
         <source src="./nazar.mp3" type="audio/mpeg">
     </audio>
     
-    <div class="content" id="mainContent">
-        <div class="glitch">SİSTEMƏ SIZILIR</div>
-        <div class="warning">⚠ İCAZƏSİZ GİRİŞ AŞKARLANDI ⚠</div>
-        <button class="access-btn" onclick="startHack()">[ SİSTEMƏ SIZ ]</button>
-    </div>
-    
-    <div class="content hidden" id="terminalContent">
-        <div class="terminal" id="terminal"></div>
-        <div class="password-box" id="passwordBox">
-            <div>> GİRİŞ ŞİFRƏSİNİ DAXİL ET:</div>
-            <input type="text" class="password-input" id="passInput" placeholder="doritos" onkeypress="checkPassword(event)">
-            <button class="access-btn" onclick="checkPassword({type:'click'})" style="padding: 10px 20px; margin-top: 10px;">[ GİR ]</button>
-            <div class="final-message hidden" id="finalMsg"></div>
+    <div id="allContent">
+        <div class="content" id="mainContent">
+            <div class="glitch">SİSTEMƏ SIZILIR</div>
+            <div class="warning">⚠ İCAZƏSİZ GİRİŞ AŞKARLANDI ⚠</div>
+            <button class="access-btn" onclick="startHack()">[ SİSTEMƏ SIZ ]</button>
         </div>
-    </div>
-
-    <div id="ziyadiScreen">
-        <div style="font-size:3.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;animation:blink 0.5s infinite;">ZIYADI BABA</div>
-        <div style="font-size:1.5rem;margin-top:30px;color:#00ff00;text-shadow:0 0 20px #00ff00;">✓ SİSTEM TAM SƏNİNDİ ✓</div>
-        <div style="margin-top:40px;font-size:1rem;color:#00ff00;text-shadow:0 0 10px #00ff00;line-height:2;">
-            > Admin səviyyəsi: LEGENDARY<br>
-            > Doritos Protocol: AKTİV<br>
-            > Ziyadi Baba təsdiqlədi ✓
+        
+        <div class="content hidden" id="terminalContent">
+            <div class="terminal" id="terminal"></div>
+            <div class="password-box" id="passwordBox">
+                <div>> GİRİŞ ŞİFRƏSİNİ DAXİL ET:</div>
+                <input type="text" class="password-input" id="passInput" placeholder="doritos" onkeypress="checkPassword(event)">
+                <button class="access-btn" onclick="checkPassword({type:'click'})" style="padding: 10px 20px; margin-top: 10px;">[ GİR ]</button>
+                <div class="final-message hidden" id="finalMsg"></div>
+            </div>
         </div>
-        <button class="music-btn" onclick="forceMusic()">[ MAHNINI BAŞLAT ]</button>
     </div>
 
     <script>
@@ -205,8 +171,7 @@
         setInterval(drawMatrix, 35);
         
         function forceMusic() {
-            const music = document.getElementById('bgMusic');
-            music.play();
+            document.getElementById('bgMusic').play();
         }
         
         function startHack() {
@@ -258,14 +223,21 @@
                     msg.style.color = '#00ff00';
 
                     setTimeout(() => {
-                        // KÖHNƏ CONTENTİ GİZLƏT - qarışmasın
-                        document.getElementById('mainContent').classList.add('hidden');
-                        document.getElementById('terminalContent').classList.add('hidden');
-                        // ZIYADI BABA GÖSTƏR
-                        document.getElementById('ziyadiScreen').style.display = 'flex';
+                        // BÜTÜN KÖHNƏ CONTENTİ SİL, TƏZƏDƏN YAZ
+                        document.getElementById('allContent').innerHTML = `
+                            <div class="content">
+                                <div style="font-size:3.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;animation:blink 0.5s infinite;">ZIYADI BABA</div>
+                                <div style="font-size:1.5rem;margin-top:30px;color:#00ff00;text-shadow:0 0 20px #00ff00;">✓ SİSTEM TAM SƏNİNDİ ✓</div>
+                                <div style="margin-top:40px;font-size:1rem;color:#00ff00;text-shadow:0 0 10px #00ff00;line-height:2;">
+                                    > Admin səviyyəsi: LEGENDARY<br>
+                                    > Doritos Protocol: AKTİV<br>
+                                    > Ziyadi Baba təsdiqlədi ✓
+                                </div>
+                                <button class="access-btn" onclick="forceMusic()" style="margin-top:30px;">[ MAHNINI BAŞLAT ]</button>
+                            </div>
+                        `;
                         // Mahnını zorla başlat
-                        const music = document.getElementById('bgMusic');
-                        music.play().catch(e => console.log('Auto play bloklandı'));
+                        document.getElementById('bgMusic').play().catch(e => console.log('Auto play bloklandı'));
                     }, 1000);
 
                 } else {
