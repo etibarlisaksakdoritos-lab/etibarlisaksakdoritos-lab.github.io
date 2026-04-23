@@ -22,6 +22,7 @@
             width: 100%;
             height: 100%;
             z-index: 1;
+            pointer-events: none; /* BUNU ƏLAVƏ ELƏDİM - DÜYMƏ İŞLƏSİN */
         }
         .admin-badge {
             position: fixed;
@@ -102,6 +103,8 @@
             box-shadow: 0 0 20px #00ff00;
             margin-top: 20px;
             z-index: 20;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
        .access-btn:hover,.access-btn:active {
             background: #00ff00;
@@ -221,7 +224,6 @@
             border: 2px solid #ff0000;
             background: rgba(255,0,0,0.15);
             box-shadow: 0 0 35px #ff0000;
-            /* BLINK SİLİNDİ - İNDİ HƏMİŞƏ GÖRÜNÜR */
         }
        .boss-title {
             color: #ff0000;
@@ -367,7 +369,7 @@
             document.head.appendChild(script);
         } catch(e) { console.log('PDF kitabxanası yüklənmədi'); }
 
-        const ADMIN_KEY = "supersecret123"; // GİZLİ AÇAR - DƏYİŞƏ BİLƏRSƏN
+        const ADMIN_KEY = "supersecret123";
         const ADMIN_TIMEOUT = 3 * 60 * 1000;
 
         function isAdmin() {
@@ -756,4 +758,14 @@
                 { icon: '🥈', name: '5 Dərs', unlocked: count >= 5 },
                 { icon: '🥇', name: '8 Dərs', unlocked: count >= 8 },
                 { icon: '💀', name: 'Boss Killer', unlocked: bossDone },
-                { icon: '
+                { icon: '🌙', name: 'Gecə Bayquşu', unlocked: nightOwl }
+            ];
+
+            let medalHTML = '<div style="color:#FFD700;margin-bottom:5px;">🏆 MEDALLAR</div>';
+            medals.forEach(m => {
+                medalHTML += `<span class="medal ${m.unlocked? 'unlocked' : ''}" title="${m.name}">${m.icon}</span>`;
+            });
+            document.getElementById('medalBox').innerHTML = medalHTML;
+        }
+
+        function updateGlobalBoard(name, progress, isBoss
