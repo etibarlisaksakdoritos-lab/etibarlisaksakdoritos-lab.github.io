@@ -113,9 +113,37 @@
             text-shadow: 0 0 15px #00ff00;
             animation: blink 0.8s infinite;
         }
+        .lesson-box {
+            background: rgba(0,0,0,0.85);
+            border: 2px solid #00ff00;
+            padding: 20px;
+            max-width: 700px;
+            text-align: left;
+            box-shadow: 0 0 30px #00ff00;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+        .lesson-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        .lesson-box::-webkit-scrollbar-track {
+            background: #000;
+        }
+        .lesson-box::-webkit-scrollbar-thumb {
+            background: #00ff00;
+        }
+        .code-block {
+            background: #111;
+            padding: 10px;
+            border-left: 3px solid #00ff00;
+            font-family: monospace;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
         @media (max-width: 768px) {
             .glitch { font-size: 2rem; }
             .warning { font-size: 1rem; }
+            .lesson-box { max-width: 95%; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -223,20 +251,62 @@
                     msg.style.color = '#00ff00';
 
                     setTimeout(() => {
-                        // BÜTÜN KÖHNƏ CONTENTİ SİL, TƏZƏDƏN YAZ
                         document.getElementById('allContent').innerHTML = `
                             <div class="content">
-                                <div style="font-size:3.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;animation:blink 0.5s infinite;">ZIYADI BABA</div>
-                                <div style="font-size:1.5rem;margin-top:30px;color:#00ff00;text-shadow:0 0 20px #00ff00;">✓ SİSTEM TAM SƏNİNDİ ✓</div>
-                                <div style="margin-top:40px;font-size:1rem;color:#00ff00;text-shadow:0 0 10px #00ff00;line-height:2;">
-                                    > Admin səviyyəsi: LEGENDARY<br>
-                                    > Doritos Protocol: AKTİV<br>
-                                    > Ziyadi Baba təsdiqlədi ✓
+                                <div style="font-size:3.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;animation:blink 0.5s infinite;margin-bottom:20px;">ZIYADI BABA</div>
+                                <div style="font-size:1.3rem;color:#00ff00;text-shadow:0 0 20px #00ff00;margin-bottom:30px;">✓ HACKER AKADEMİYASINA XOŞ GƏLDİN ✓</div>
+                                
+                                <button class="access-btn" onclick="forceMusic()" style="margin-bottom:40px;">[ MAHNINI BAŞLAT ]</button>
+                                
+                                <div class="lesson-box">
+                                    <div style="font-size:1.2rem;margin-bottom:15px;color:#00ff00;text-align:center;">🔥 DƏRS 1: PYTHON İLƏ HACK BAŞLAYIR 🔥</div>
+                                    
+                                    <div style="margin-bottom:25px;">
+                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 1: PRINT - Ekrana yazdır</div>
+                                        <div class="code-block">print("ZIYADI BABA LEGENDARY")</div>
+                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Bu kod ekrana "ZIYADI BABA LEGENDARY" yazır</div>
+                                    </div>
+
+                                    <div style="margin-bottom:25px;">
+                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 2: DƏYİŞƏN - Məlumat saxla</div>
+                                        <div class="code-block">ad = "Ziyadi"
+yas = 999
+print(f"Salam {ad}, sənin {yas} IQ-un var")</div>
+                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Dəyişənlərlə məlumat saxlayıb istifadə edirsən</div>
+                                    </div>
+
+                                    <div style="margin-bottom:25px;">
+                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 3: IF - Şərt yoxla</div>
+                                        <div class="code-block">sifre = "doritos"
+if sifre == "doritos":
+    print("GİRİŞ TƏSDİQLƏNDİ")
+else:
+    print("YANLIŞ ŞİFRƏ")</div>
+                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Bizim saytın məntiqi elə budur qardaş 😂</div>
+                                    </div>
+
+                                    <div style="margin-bottom:25px;">
+                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 4: FOR DÖVRÜ - Təkrarla</div>
+                                        <div class="code-block">for i in range(5):
+    print(f"HACK #{i+1} TAMAMLANDI")</div>
+                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// 5 dəfə "HACK TAMAMLANDI" yazacaq</div>
+                                    </div>
+
+                                    <div style="margin-bottom:25px;">
+                                        <div style="color:#ff0000;margin-bottom:8px;">> BOSS SƏVİYYƏ: MATRIX KODU</div>
+                                        <div class="code-block">import random
+while True:
+    print(random.choice(['0','1']), end='')</div>
+                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Bizim arxadakı matrix elə budur. Sonsuz 0 və 1 😎</div>
+                                    </div>
+
+                                    <div style="text-align:center;margin-top:30px;font-size:1rem;color:#00ff00;text-shadow:0 0 10px #00ff00;">
+                                        > ZIYADI BABA DEYİR: KOPYALA, ÖYRƏN, HACK ELƏ <br>
+                                        > Admin səviyyəsi: PYTHON HACKER ✓
+                                    </div>
                                 </div>
-                                <button class="access-btn" onclick="forceMusic()" style="margin-top:30px;">[ MAHNINI BAŞLAT ]</button>
                             </div>
                         `;
-                        // Mahnını zorla başlat
                         document.getElementById('bgMusic').play().catch(e => console.log('Auto play bloklandı'));
                     }, 1000);
 
