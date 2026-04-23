@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZIYADI BABA HACKER</title>
+<title>SİSTEMƏ SIZILIR...</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
@@ -11,12 +11,12 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 #matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1}
 .admin{position:fixed;top:15px;left:15px;z-index:99;background:rgba(0,0,0,.9);border:1px solid #f00;padding:5px 12px;font-size:.7rem;color:#f00;text-shadow:0 0 8px #f00;font-weight:900}
 .admin::before{content:"● ";animation:blink.8s infinite}
-.sound{position:fixed;top:15px;right:15px;z-index:99;background:rgba(0,0,0,.9);border:1px solid #0f0;padding:8px 12px;font-size:1.2rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .wrap{position:relative;z-index:10;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh;text-align:center;padding:20px}
 .title{font-size:2.2rem;font-weight:900;text-shadow:0 0 10px #0f0,0 0 20px #0f0;animation:glitch 2s infinite}
 .warn{font-size:1rem;margin:20px 0;color:#f00;text-shadow:0 0 10px #f00;animation:blink 1s infinite}
 .btn{background:transparent;border:2px solid #0f0;color:#0f0;padding:15px 30px;font-size:1rem;font-family:'Orbitron';cursor:pointer;text-transform:uppercase;box-shadow:0 0 20px #0f0;margin-top:20px;-webkit-tap-highlight-color:transparent}
 .btn:active{background:#0f0;color:#000}
+.hidden{display:none!important}
 .term{text-align:left;font-size:.85rem;line-height:1.6;max-width:600px}
 .input{background:#000;border:2px solid #0f0;color:#0f0;padding:10px 20px;font-family:'Orbitron';font-size:1rem;text-align:center;outline:none;box-shadow:0 0 15px #0f0;margin:10px;width:200px}
 .box{background:rgba(0,0,0,.85);border:2px solid #0f0;padding:15px;max-width:95%;width:850px;text-align:left;box-shadow:0 0 30px #0f0;overflow-y:auto;max-height:60vh;margin-top:15px}
@@ -24,7 +24,7 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .stats{background:rgba(0,255,0,.1);border:2px solid #0f0;padding:12px;margin-bottom:15px;text-align:center;font-size:1rem;text-shadow:0 0 10px #0f0}
 .lesson{margin-bottom:20px;padding:12px;border:1px solid #030;transition:.3s}
 .lesson.done{border:1px solid #0f0;background:rgba(0,255,0,.05);box-shadow:0 0 15px #0f0}
-.lesson.boss{border:2px solid #f00;background:rgba(255,0,0,.15);box-shadow:0 0 35px #f00}
+.lesson.boss{border:2px solid #f00;background:rgba(255,0,0,.15);box-shadow:0 0 35px #f00;animation:bossPulse 2s infinite}
 .boss-title{color:#f00;margin-bottom:8px;font-size:1.1rem;text-shadow:0 0 15px #f00;font-weight:900}
 .small-btn{background:transparent;border:1px solid #0f0;color:#0f0;padding:5px 15px;font-size:.8rem;font-family:'Orbitron';cursor:pointer;margin-top:10px}
 .small-btn.done{background:#0f0;color:#000;cursor:default}
@@ -37,29 +37,18 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .board-item{padding:5px;margin:3px 0;border-bottom:1px solid #036;font-size:.8rem;display:flex;justify-content:space-between}
 .board-item.me{background:rgba(0,255,0,.2);border:1px solid #0f0;font-weight:bold}
 .board-item.admin{background:rgba(255,0,0,.3);border:1px solid #f00;color:#f00;text-shadow:0 0 8px #f00;font-weight:900}
-.cert{border:3px solid #FFD700;background:rgba(0,0,0,.95);padding:20px;text-align:center;margin-top:20px;box-shadow:0 0 40px #FFD700}
-.cert-title{color:#FFD700;font-size:1.5rem;text-shadow:0 0 15px #FFD700;margin-bottom:10px}
 @keyframes glitch{0%,100%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(-2px,-2px)}60%{transform:translate(2px,2px)}80%{transform:translate(2px,-2px)}}
 @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+@keyframes bossPulse{0%,100%{box-shadow:0 0 35px #f00}50%{box-shadow:0 0 60px #f00,0 0 90px #f00}}
+@keyframes rainbowGlitch{0%{filter:hue-rotate(0deg)}25%{filter:hue-rotate(90deg)}50%{filter:hue-rotate(180deg)}75%{filter:hue-rotate(270deg)}100%{filter:hue-rotate(360deg)}}
+.glitch-mode{animation:rainbowGlitch.3s infinite}
 @media(max-width:480px){.title{font-size:1.8rem}.box{font-size:.7rem;max-height:50vh}.stats{font-size:.85rem}}
 </style>
 </head>
 <body>
 <canvas id="matrix"></canvas>
 <div class="admin" id="adminBadge" style="display:none">ADMIN ONLINE</div>
-<div class="sound" id="soundBtn">🔇</div>
-
-<div id="app">
-<div class="wrap" id="startScreen">
-  <div class="title">SİSTEMƏ SIZILIR</div>
-  <div class="warn">⚠ İCAZƏSİZ GİRİŞ AŞKARLANDI ⚠</div>
-  <button class="btn" id="hackBtn">[ SİSTEMƏ SIZ ]</button>
-</div>
-</div>
-
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a8493d.mp3" type="audio/mpeg">
-</audio>
+<div id="app"></div>
 
 <script>
 const ADMIN_KEY="ZIYADIMARKA";
@@ -71,20 +60,16 @@ if(new URLSearchParams(location.search).get('admin')===ADMIN_KEY){localStorage.s
 const isAdmin=()=>localStorage.getItem('admin')===ADMIN_KEY;
 if(isAdmin()){$('#adminBadge').style.display='block'}
 
-// MUSIC - NAZAR TRAP BEAT
-const music=$('#bgMusic');let soundOn=false;
-$('#soundBtn').onclick=()=>{soundOn=!soundOn;soundOn?music.play().catch(e=>{}):music.pause();$('#soundBtn').textContent=soundOn?'🔊':'🔇'}
-
 // MATRIX
 const c=$('#matrix'),x=c.getContext('2d');
 function resize(){c.width=innerWidth;c.height=innerHeight}
 resize();window.onresize=resize;
 const fs=10,cols=c.width/fs,drops=Array(cols).fill(1);
+let matrixSpeed=35;
 setInterval(()=>{x.fillStyle='rgba(0,0,0,.04)';x.fillRect(0,0,c.width,c.height);x.fillStyle='#0f0';x.font=fs+'px monospace';
-for(let i=0;i<drops.length;i++){x.fillText('01'[Math.random()*2|0],i*fs,drops[i]*fs);if(drops[i]*fs>c.height&&Math.random()>.975)drops[i]=0;drops[i]++}},35);
+for(let i=0;i<drops.length;i++){x.fillText('01'[Math.random()*2|0],i*fs,drops[i]*fs);if(drops[i]*fs>c.height&&Math.random()>.975)drops[i]=0;drops[i]++}},matrixSpeed);
 
-// START
-$('#hackBtn').onclick=()=>{if(!soundOn){soundOn=true;music.play().catch(e=>{});$('#soundBtn').textContent='🔊'};startHack()};
+function showStart(){app.innerHTML=`<div class="wrap"><div class="title">SİSTEMƏ SIZILIR</div><div class="warn">⚠ İCAZƏSİZ GİRİŞ AŞKARLANDI ⚠</div><button class="btn" id="hackBtn">[ SİSTEMƏ SIZ ]</button></div>`;$('#hackBtn').onclick=startHack}
 
 function startHack(){app.innerHTML=`<div class="wrap"><div class="term" id="term"></div><div id="passBox" style="opacity:0;margin-top:20px"><div>> GİRİŞ ŞİFRƏSİNİ DAXİL ET:</div><input type="text" class="input" id="pass" placeholder="doritos"><button class="btn" id="loginBtn" style="padding:10px 20px">[ GİR ]</button><div id="msg" style="margin-top:15px;font-size:1.2rem"></div></div></div>`;const t=$('#term'),lines=['> Firewall bypass edilir...','> Root access əldə edilir...','> Şifrələnmiş fayllar açılır...','> SİSTEMƏ UĞURLA SIZILDI ✓','> Sən həqiqəti görməyə hazırsan?'];let i=0;function type(){if(i<lines.length){t.innerHTML+=lines[i]+'<br>';i++;setTimeout(type,800)}else setTimeout(()=>$('#passBox').style.opacity='1',500)}type();$('#loginBtn').onclick=checkPass}
 
@@ -92,14 +77,17 @@ function checkPass(){const p=$('#pass').value.toLowerCase(),m=$('#msg');if(p==='
 
 function loadAcademy(){const name=localStorage.getItem('hackerName');if(!name){app.innerHTML=`<div class="wrap"><div style="font-size:1.8rem;margin-bottom:20px">HACKER ADINI DAXİL ET</div><input type="text" class="input" id="nameInput" placeholder="Adın" maxlength="15"><button class="btn" id="startBtn">[ BAŞLA ]</button></div>`;$('#startBtn').onclick=()=>{const n=$('#nameInput').value.trim();if(n.length<2)return alert('Ad ən azı 2 hərf olmalıdır!');localStorage.setItem('hackerName',n);updateBoard(n,0,false);showLessons(n)}}else showLessons(name)}
 
-function showLessons(name){const done=JSON.parse(localStorage.getItem('done')||'[]');const bossUnlock=done.length===8;const bossDone=localStorage.getItem('bossDone')==='true';const lessons=[['PRINT - Ekrana yazdır','print("ZIYADI BABA LEGENDARY")','Bu kod ekrana yazır'],['DƏYİŞƏN - Məlumat saxla','ad = "Ziyadi"\nyas = 999\nprint(f"Salam {ad}")','Dəyişənlərlə məlumat saxla'],['IF - Şərt yoxla','sifre = "doritos"\nif sifre == "doritos":\n print("GİRİŞ TƏSDİQLƏNDİ")','Bizim saytın məntiqi 😂'],['FOR DÖVRÜ - Təkrarla','for i in range(5):\n print(f"HACK #{i+1}")','5 dəfə təkrarlayır'],['WHILE DÖVRÜ','say = 0\nwhile say < 3:\n print("Matrix...")\n say += 1','Şərt doğru olduqca işləyir'],['FUNKSİYA','def salam(ad):\n return f"Xoş gəldin {ad}"\nprint(salam("Hacker"))','Kod təkrarının qarşısını alır'],['LİST','hackerler = ["Ziyadi","Doritos"]\nfor h in hackerler:\n print(h)','Çox məlumatı bir yerdə saxla'],['BOSS: MATRIX','import random\nwhile True:\n print(random.choice([\'0\',\'1\']), end=\'\')','Sonsuz 0 və 1 😎']];let html=`<div class="wrap" style="justify-content:flex-start;padding-top:30px"><div style="font-size:2.2rem;font-weight:900;text-shadow:0 0 20px #0f0;animation:blink.5s infinite;margin-bottom:10px">ZIYADI BABA</div><div style="font-size:1rem;color:#0f0;text-shadow:0 0 20px #0f0;margin-bottom:10px">✓ XOŞ GƏLDİN ${name.toUpperCase()} ✓</div><div class="stats" id="stats"></div><div class="medal-box" id="medals"></div><div class="box"><div style="font-size:1.1rem;margin-bottom:15px;color:#0f0;text-align:center">🔥 DƏRS 1: PYTHON İLƏ HACK BAŞLAYIR 🔥</div>`;lessons.forEach((l,i)=>{const n=i+1,isDone=done.includes(n);html+=`<div class="lesson ${isDone?'done':''}" id="l${n}"><div style="color:#f00;margin-bottom:8px">> SƏVİYYƏ ${n}: ${l[0]}</div><div class="code">${l[1]}</div><div style="font-size:.75rem;margin-top:5px;color:#888">// ${l[2]}</div><button class="small-btn ${isDone?'done':''}" data-n="${n}" ${isDone?'disabled':''}>${isDone?'[✓ TAMAMLANDI]':'[ OXUDUM ]'}</button></div>`});if(bossUnlock){html+=`<div class="lesson boss"><div class="boss-title">> SƏVİYYƏ 9: HACK THE MATRIX 🔒</div><div style="font-size:.85rem;margin:12px 0;color:#f00;text-shadow:0 0 10px #f00">⚠ GİZLİ BOSS LEVEL AÇILDI ⚠</div><div class="code" style="border-left:3px solid #f00"># BOSS KODU: MATRIX-I ƏLƏ KEÇİR\nimport random\nwhile True:\n print(random.choice(['0','1']), end='') # ZIYADI BABA: ${name}</div><button class="boss-btn" id="bossBtn" ${bossDone?'disabled':''}>${bossDone?'[✓ MATRIX HACK EDİLDİ]':'[ 🔥 MATRIX-I HACK ELƏ 🔥 ]'}</button></div>`}if(bossDone){html+=`<div class="cert"><div class="cert-title">🏆 SERTİFİKAT 🏆</div><div style="color:#FFD700;font-size:1.2rem;margin:15px 0">${name.toUpperCase()}</div><div style="color:#0f0">RƏSMİ OLARAQ MATRIX OVERLORD ELAN EDİLDİ</div><div style="color:#888;font-size:.8rem;margin-top:15px">ZIYADI BABA HACKER AKADEMIYASI</div><button class="btn" id="printBtn" style="border-color:#FFD700;color:#FFD700;box-shadow:0 0 20px #FFD700">[ SERTİFİKATI YÜKLƏ ]</button></div>`}html+=`<div style="text-align:center;margin-top:25px;font-size:.9rem;color:#0f0">> ZIYADI BABA DEYİR: KOPYALA, ÖYRƏN, HACK ELƏ <</div><div style="text-align:center"><button class="btn" id="dlBtn" style="background:#f00;border-color:#f00;box-shadow:0 0 20px #f00">[ KODLARI YÜKLƏ.PY ]</button></div><div class="board" id="board"><div style="color:#08f;margin-bottom:10px;text-align:center">🌍 GLOBAL LEADERBOARD</div></div></div>`;app.innerHTML=html;document.querySelectorAll('.small-btn').forEach(b=>b.onclick=()=>completeLesson(+b.dataset.n));if($('#bossBtn'))$('#bossBtn').onclick=activateBoss;if($('#printBtn'))$('#printBtn').onclick=()=>window.print();$('#dlBtn').onclick=downloadCode;updateStats();updateMedals();renderBoard()}
+function showLessons(name){const done=JSON.parse(localStorage.getItem('done')||'[]');const bossUnlock=done.length===8;const bossDone=localStorage.getItem('bossDone')==='true';const lessons=[['PRINT - Ekrana yazdır','print("ZIYADI BABA LEGENDARY")','Bu kod ekrana yazır'],['DƏYİŞƏN - Məlumat saxla','ad = "Ziyadi"\nyas = 999\nprint(f"Salam {ad}")','Dəyişənlərlə məlumat saxla'],['IF - Şərt yoxla','sifre = "doritos"\nif sifre == "doritos":\n print("GİRİŞ TƏSDİQLƏNDİ")','Bizim saytın məntiqi 😂'],['FOR DÖVRÜ - Təkrarla','for i in range(5):\n print(f"HACK #{i+1}")','5 dəfə təkrarlayır'],['WHILE DÖVRÜ','say = 0\nwhile say < 3:\n print("Matrix...")\n say += 1','Şərt doğru olduqca işləyir'],['FUNKSİYA','def salam(ad):\n return f"Xoş gəldin {ad}"\nprint(salam("Hacker"))','Kod təkrarının qarşısını alır'],['LİST','hackerler = ["Ziyadi","Doritos"]\nfor h in hackerler:\n print(h)','Çox məlumatı bir yerdə saxla'],['BOSS: MATRIX','import random\nwhile True:\n print(random.choice([\'0\',\'1\']), end=\'\')','Sonsuz 0 və 1 😎']];let html=`<div class="wrap" style="justify-content:flex-start;padding-top:30px"><div style="font-size:2.2rem;font-weight:900;text-shadow:0 0 20px #0f0;animation:blink.5s infinite;margin-bottom:10px">ZIYADI BABA</div><div style="font-size:1rem;color:#0f0;text-shadow:0 0 20px #0f0;margin-bottom:10px">✓ XOŞ GƏLDİN ${name.toUpperCase()} ✓</div><div class="stats" id="stats"></div><div class="medal-box" id="medals"></div><div class="box"><div style="font-size:1.1rem;margin-bottom:15px;color:#0f0;text-align:center">🔥 DƏRS 1: PYTHON İLƏ HACK BAŞLAYIR 🔥</div>`;lessons.forEach((l,i)=>{const n=i+1,isDone=done.includes(n);html+=`<div class="lesson ${isDone?'done':''}" id="l${n}"><div style="color:#f00;margin-bottom:8px">> SƏVİYYƏ ${n}: ${l[0]}</div><div class="code">${l[1]}</div><div style="font-size:.75rem;margin-top:5px;color:#888">// ${l[2]}</div><button class="small-btn ${isDone?'done':''}" data-n="${n}" ${isDone?'disabled':''}>${isDone?'[✓ TAMAMLANDI]':'[ OXUDUM ]'}</button></div>`});if(bossUnlock){html+=`<div class="lesson boss"><div class="boss-title">> SƏVİYYƏ 9: HACK THE MATRIX 🔒</div><div style="font-size:.85rem;margin:12px 0;color:#f00;text-shadow:0 0 10px #f00">⚠ GİZLİ BOSS LEVEL AÇILDI ⚠</div><div class="code" style="border-left:3px solid #f00"># BOSS KODU: MATRIX-I ƏLƏ KEÇİR\nimport random\nwhile True:\n print(random.choice(['0','1']), end='') # ZIYADI BABA: ${name}</div><button class="boss-btn" id="bossBtn" ${bossDone?'disabled':''}>${bossDone?'[✓ MATRIX HACK EDİLDİ]':'[ 🔥 MATRIX-I HACK ELƏ 🔥 ]'}</button></div>`}html+=`<div style="text-align:center;margin-top:25px;font-size:.9rem;color:#0f0">> ZIYADI BABA DEYİR: KOPYALA, ÖYRƏN, HACK ELƏ <</div><div style="text-align:center"><button class="btn" id="dlBtn" style="background:#f00;border-color:#f00;box-shadow:0 0 20px #f00">[ KODLARI YÜKLƏ.PY ]</button></div><div class="board" id="board"><div style="color:#08f;margin-bottom:10px;text-align:center">🌍 GLOBAL LEADERBOARD</div></div></div></div>`;app.innerHTML=html;document.querySelectorAll('.small-btn').forEach(b=>b.onclick=()=>completeLesson(+b.dataset.n));if($('#bossBtn'))$('#bossBtn').onclick=activateBoss;$('#dlBtn').onclick=downloadCode;updateStats();updateMedals();renderBoard()}
 function completeLesson(n){let done=JSON.parse(localStorage.getItem('done')||'[]');if(!done.includes(n)){done.push(n);localStorage.setItem('done',JSON.stringify(done));$(`#l${n}`).classList.add('done');const b=$(`#l${n}.small-btn`);b.textContent='[✓ TAMAMLANDI]';b.classList.add('done');b.disabled=true;updateBoard(localStorage.getItem('hackerName'),done.length,false);updateStats();updateMedals();if(done.length===8)setTimeout(()=>location.reload(),500)}}
-function activateBoss(){if(localStorage.getItem('bossDone')==='true')return;localStorage.setItem('bossDone','true');updateBoard(localStorage.getItem('hackerName'),8,true);alert('🔥 MATRIX HACK EDİLDİ 🔥\n\nZIYADI BABA: '+localStorage.getItem('hackerName')+'\nSTATUS: MATRIX OVERLORD ✓');setTimeout(()=>location.reload(),2000)}
+function activateBoss(){if(localStorage.getItem('bossDone')==='true')return;localStorage.setItem('bossDone','true');updateBoard(localStorage.getItem('hackerName'),8,true);document.body.classList.add('glitch-mode');matrixSpeed=10;alert('🔥 MATRIX HACK EDİLDİ 🔥\n\nMATRIX OVERLORD: '+localStorage.getItem('hackerName')+'\nSTATUS: BOSS ✓');setTimeout(()=>{document.body.classList.remove('glitch-mode');matrixSpeed=35;location.reload()},5000)}
 function updateStats(){const done=JSON.parse(localStorage.getItem('done')||'[]').length;const name=localStorage.getItem('hackerName')||'HACKER';const boss=localStorage.getItem('bossDone')==='true';const stars='★'.repeat(done)+'☆'.repeat(8-done);let status=boss?'<br>> STATUS: <span style="color:#f00">MATRIX OVERLORD ✓</span>':done===8?'<br>> STATUS: <span style="color:#f00">MASTER HACKER ✓</span>':done>=5?'<br>> STATUS: SENIOR HACKER':done>=3?'<br>> STATUS: JUNIOR HACKER':'<br>> STATUS: NOOB HACKER';if(isAdmin())status+='<br>> ROL: <span style="color:#f00;text-shadow:0 0 10px #f00">ADMIN 👑</span>';$('#stats').innerHTML=`> HACKER: ${name.toUpperCase()}<br>> PROGRESS: ${done}/8 ${stars}${status}`}
 function updateMedals(){const done=JSON.parse(localStorage.getItem('done')||'[]').length;const boss=localStorage.getItem('bossDone')==='true';const m=['🥉','🥈','🥇','🏆','💎','👑','🔥','⚡','🌟'];$('#medals').innerHTML=m.map((x,i)=>`<span class="medal ${i<done||(i===8&&boss)?'on':''}">${x}</span>`).join('')}
 function updateBoard(name,score,boss){let board=JSON.parse(localStorage.getItem('globalBoard')||'[]');const idx=board.findIndex(u=>u.name===name);if(idx>=0){board[idx].score=score;board[idx].boss=boss;board[idx].admin=isAdmin()}else board.push({name,score,boss,admin:isAdmin()});board.sort((a,b)=>b.boss-a.boss||b.score-a.score);localStorage.setItem('globalBoard',JSON.stringify(board.slice(0,10)))}
 function renderBoard(){const board=JSON.parse(localStorage.getItem('globalBoard')||'[]');const me=localStorage.getItem('hackerName');$('#board').innerHTML='<div style="color:#08f;margin-bottom:10px;text-align:center">🌍 GLOBAL LEADERBOARD</div>'+board.map((u,i)=>`<div class="board-item ${u.name===me?'me':''} ${u.admin?'admin':''}"><span>${i+1}. ${u.name} ${u.boss?'🌟':''} ${u.admin?'👑':''}</span><span>${u.score}/8 ${u.boss?'MATRIX':''}</span></div>`).join('')||'<div style="color:#666;text-align:center">Hələ heç kim yoxdur</div>'}
 function downloadCode(){const code=`# ZIYADI BABA HACKER AKADEMIYASI\nprint("ZIYADI BABA LEGENDARY")\nad = "Ziyadi"\nyas = 999\nprint(f"Salam {ad}, senin {yas} IQ-un var")\nsifre = "doritos"\nif sifre == "doritos":\n print("GIRIS TESDIQLENDI")\nfor i in range(5):\n print(f"HACK #{i+1} TAMAMLANDI")\nsay = 0\nwhile say < 3:\n print("Matrix yuklenir...")\n say += 1\ndef salam_ver(ad):\n return f"Xos geldin {ad}, sen efsanesen!"\nprint(salam_ver("Hacker"))\nhackerler = ["Ziyadi", "Doritos", "Matrix"]\nfor h in hackerler:\n print(f"LEGENDARY: {h}")\nimport random\nwhile True:\n print(random.choice(['0','1']), end='')`;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+code],{type:'text/plain'}));a.download='ziyadi_baba_python.py';a.click()}
+
+// BAŞLAT
+showStart();
 </script>
 </body>
 </html>
