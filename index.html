@@ -117,12 +117,12 @@
             background: rgba(0,0,0,0.85);
             border: 2px solid #00ff00;
             padding: 20px;
-            max-width: 700px;
+            max-width: 750px;
             text-align: left;
             box-shadow: 0 0 30px #00ff00;
             overflow-y: auto;
-            max-height: 65vh;
-            margin-top: 20px;
+            max-height: 60vh;
+            margin-top: 15px;
         }
         .lesson-box::-webkit-scrollbar {
             width: 8px;
@@ -161,10 +161,54 @@
             color: #ff0000;
             box-shadow: 0 0 40px #ff0000;
         }
+        .stats-box {
+            background: rgba(0,255,0,0.1);
+            border: 2px solid #00ff00;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        .lesson-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #003300;
+            transition: all 0.3s;
+        }
+        .lesson-item.completed {
+            border: 1px solid #00ff00;
+            background: rgba(0,255,0,0.05);
+            box-shadow: 0 0 15px #00ff00;
+        }
+        .complete-btn {
+            background: transparent;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        .complete-btn:hover {
+            background: #00ff00;
+            color: #000;
+        }
+        .complete-btn.done {
+            background: #00ff00;
+            color: #000;
+            cursor: default;
+        }
+        .name-box {
+            margin-bottom: 20px;
+        }
         @media (max-width: 768px) {
             .glitch { font-size: 2rem; }
             .warning { font-size: 1rem; }
-            .lesson-box { max-width: 95%; font-size: 0.75rem; max-height: 60vh; }
+            .lesson-box { max-width: 95%; font-size: 0.75rem; max-height: 55vh; }
+            .stats-box { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -325,91 +369,7 @@ while True:
                     msg.style.color = '#00ff00';
 
                     setTimeout(() => {
-                        document.getElementById('allContent').innerHTML = `
-                            <div class="content">
-                                <div style="font-size:3.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;animation:blink 0.5s infinite;margin-bottom:15px;">ZIYADI BABA</div>
-                                <div style="font-size:1.3rem;color:#00ff00;text-shadow:0 0 20px #00ff00;margin-bottom:15px;">✓ HACKER AKADEMİYASINA XOŞ GƏLDİN ✓</div>
-                                
-                                <div class="lesson-box">
-                                    <div style="font-size:1.2rem;margin-bottom:15px;color:#00ff00;text-align:center;">🔥 DƏRS 1: PYTHON İLƏ HACK BAŞLAYIR 🔥</div>
-                                    
-                                    <div style="margin-bottom:25px;">
-                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 1: PRINT - Ekrana yazdır</div>
-                                        <div class="code-block">print("ZIYADI BABA LEGENDARY")</div>
-                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Bu kod ekrana "ZIYADI BABA LEGENDARY" yazır</div>
-                                    </div>
-
-                                    <div style="margin-bottom:25px;">
-                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 2: DƏYİŞƏN - Məlumat saxla</div>
-                                        <div class="code-block">ad = "Ziyadi"
-yas = 999
-print(f"Salam {ad}, sənin {yas} IQ-un var")</div>
-                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Dəyişənlərlə məlumat saxlayıb istifadə edirsən</div>
-                                    </div>
-
-                                    <div style="margin-bottom:25px;">
-                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 3: IF - Şərt yoxla</div>
-                                        <div class="code-block">sifre = "doritos"
-if sifre == "doritos":
-    print("GİRİŞ TƏSDİQLƏNDİ")
-else:
-    print("YANLIŞ ŞİFRƏ")</div>
-                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Bizim saytın məntiqi elə budur qardaş 😂</div>
-                                    </div>
-
-                                    <div style="margin-bottom:25px;">
-                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 4: FOR DÖVRÜ - Təkrarla</div>
-                                        <div class="code-block">for i in range(5):
-    print(f"HACK #{i+1} TAMAMLANDI")</div>
-                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// 5 dəfə "HACK TAMAMLANDI" yazacaq</div>
-                                    </div>
-
-                                    <div style="margin-bottom:25px;">
-                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 5: WHILE DÖVRÜ - Şərtli təkrar</div>
-                                        <div class="code-block">say = 0
-while say < 3:
-    print("Matrix yüklənir...")
-    say += 1</div>
-                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Şərt doğru olduğu müddətcə təkrarlanır</div>
-                                    </div>
-
-                                    <div style="margin-bottom:25px;">
-                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 6: FUNKSİYA - Kodu təkrar istifadə et</div>
-                                        <div class="code-block">def salam_ver(ad):
-    return f"Xoş gəldin {ad}, sən əfsanəsən!"
-
-print(salam_ver("Hacker"))</div>
-                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Funksiyalar kod təkrarının qarşısını alır</div>
-                                    </div>
-
-                                    <div style="margin-bottom:25px;">
-                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 7: LİST - Birdən çox məlumat</div>
-                                        <div class="code-block">hackerler = ["Ziyadi", "Doritos", "Matrix"]
-for h in hackerler:
-    print(f"LEGENDARY: {h}")</div>
-                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// List ilə çox məlumatı bir yerdə saxla</div>
-                                    </div>
-
-                                    <div style="margin-bottom:25px;">
-                                        <div style="color:#ff0000;margin-bottom:8px;">> BOSS SƏVİYYƏ: MATRIX KODU</div>
-                                        <div class="code-block">import random
-while True:
-    print(random.choice(['0','1']), end='')</div>
-                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Bizim arxadakı matrix elə budur. Sonsuz 0 və 1 😎</div>
-                                    </div>
-
-                                    <div style="text-align:center;margin-top:30px;font-size:1rem;color:#00ff00;text-shadow:0 0 10px #00ff00;">
-                                        > ZIYADI BABA DEYİR: KOPYALA, ÖYRƏN, HACK ELƏ <br>
-                                        > Admin səviyyəsi: PYTHON HACKER ✓
-                                    </div>
-
-                                    <div style="text-align:center;">
-                                        <button class="download-btn" onclick="downloadLessons()">[ BÜTÜN KODLARI YÜKLƏ .PY ]</button>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        document.getElementById('bgMusic').play().catch(e => console.log('Auto play bloklandı'));
+                        loadAcademy();
                     }, 1000);
 
                 } else {
@@ -418,6 +378,121 @@ while True:
                     document.getElementById('passInput').value = '';
                 }
             }
+        }
+
+        function loadAcademy() {
+            let hackerName = localStorage.getItem('ziyadiHackerName') || '';
+            
+            if (!hackerName) {
+                document.getElementById('allContent').innerHTML = `
+                    <div class="content">
+                        <div style="font-size:2rem;margin-bottom:20px;">HACKER ADINI DAXİL ET</div>
+                        <div class="name-box">
+                            <input type="text" class="password-input" id="nameInput" placeholder="Adın" maxlength="15">
+                            <br>
+                            <button class="access-btn" onclick="saveName()">[ BAŞLA ]</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                showLessons(hackerName);
+            }
+            document.getElementById('bgMusic').play().catch(e => console.log('Auto play bloklandı'));
+        }
+
+        function saveName() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (name.length < 2) {
+                alert('Ad ən azı 2 hərf olmalıdır qardaş!');
+                return;
+            }
+            localStorage.setItem('ziyadiHackerName', name);
+            showLessons(name);
+        }
+
+        function showLessons(hackerName) {
+            let completed = JSON.parse(localStorage.getItem('ziyadiCompleted') || '[]');
+            
+            document.getElementById('allContent').innerHTML = `
+                <div class="content">
+                    <div style="font-size:2.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;animation:blink 0.5s infinite;margin-bottom:10px;">ZIYADI BABA</div>
+                    <div style="font-size:1.1rem;color:#00ff00;text-shadow:0 0 20px #00ff00;margin-bottom:10px;">✓ XOŞ GƏLDİN ${hackerName.toUpperCase()} ✓</div>
+                    
+                    <div class="stats-box" id="statsBox"></div>
+                    
+                    <div class="lesson-box">
+                        <div style="font-size:1.2rem;margin-bottom:15px;color:#00ff00;text-align:center;">🔥 DƏRS 1: PYTHON İLƏ HACK BAŞLAYIR 🔥</div>
+                        
+                        ${generateLesson(1, 'PRINT - Ekrana yazdır', 'print("ZIYADI BABA LEGENDARY")', 'Bu kod ekrana "ZIYADI BABA LEGENDARY" yazır', completed)}
+                        ${generateLesson(2, 'DƏYİŞƏN - Məlumat saxla', 'ad = "Ziyadi"\nyas = 999\nprint(f"Salam {ad}, sənin {yas} IQ-un var")', 'Dəyişənlərlə məlumat saxlayıb istifadə edirsən', completed)}
+                        ${generateLesson(3, 'IF - Şərt yoxla', 'sifre = "doritos"\nif sifre == "doritos":\n    print("GİRİŞ TƏSDİQLƏNDİ")\nelse:\n    print("YANLIŞ ŞİFRƏ")', 'Bizim saytın məntiqi elə budur qardaş 😂', completed)}
+                        ${generateLesson(4, 'FOR DÖVRÜ - Təkrarla', 'for i in range(5):\n    print(f"HACK #{i+1} TAMAMLANDI")', '5 dəfə "HACK TAMAMLANDI" yazacaq', completed)}
+                        ${generateLesson(5, 'WHILE DÖVRÜ - Şərtli təkrar', 'say = 0\nwhile say < 3:\n    print("Matrix yüklənir...")\n    say += 1', 'Şərt doğru olduğu müddətcə təkrarlanır', completed)}
+                        ${generateLesson(6, 'FUNKSİYA - Kodu təkrar istifadə et', 'def salam_ver(ad):\n    return f"Xoş gəldin {ad}, sən əfsanəsən!"\n\nprint(salam_ver("Hacker"))', 'Funksiyalar kod təkrarının qarşısını alır', completed)}
+                        ${generateLesson(7, 'LİST - Birdən çox məlumat', 'hackerler = ["Ziyadi", "Doritos", "Matrix"]\nfor h in hackerler:\n    print(f"LEGENDARY: {h}")', 'List ilə çox məlumatı bir yerdə saxla', completed)}
+                        ${generateLesson(8, 'BOSS SƏVİYYƏ: MATRIX KODU', 'import random\nwhile True:\n    print(random.choice([\'0\',\'1\']), end=\'\')', 'Bizim arxadakı matrix elə budur. Sonsuz 0 və 1 😎', completed)}
+
+                        <div style="text-align:center;margin-top:30px;font-size:1rem;color:#00ff00;text-shadow:0 0 10px #00ff00;">
+                            > ZIYADI BABA DEYİR: KOPYALA, ÖYRƏN, HACK ELƏ <br>
+                            > Admin səviyyəsi: PYTHON HACKER ✓
+                        </div>
+
+                        <div style="text-align:center;">
+                            <button class="download-btn" onclick="downloadLessons()">[ BÜTÜN KODLARI YÜKLƏ .PY ]</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            updateStats();
+        }
+
+        function generateLesson(num, title, code, desc, completed) {
+            const isDone = completed.includes(num);
+            return `
+                <div class="lesson-item ${isDone ? 'completed' : ''}" id="lesson${num}">
+                    <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ ${num}: ${title}</div>
+                    <div class="code-block">${code}</div>
+                    <div style="font-size:0.85rem;margin-top:5px;color:#888;">// ${desc}</div>
+                    <button class="complete-btn ${isDone ? 'done' : ''}" onclick="completeLesson(${num})" ${isDone ? 'disabled' : ''}>
+                        ${isDone ? '[✓ TAMAMLANDI]' : '[ OXUDUM ]'}
+                    </button>
+                </div>
+            `;
+        }
+
+        function completeLesson(num) {
+            let completed = JSON.parse(localStorage.getItem('ziyadiCompleted') || '[]');
+            if (!completed.includes(num)) {
+                completed.push(num);
+                localStorage.setItem('ziyadiCompleted', JSON.stringify(completed));
+                document.getElementById(`lesson${num}`).classList.add('completed');
+                const btn = document.querySelector(`#lesson${num} .complete-btn`);
+                btn.textContent = '[✓ TAMAMLANDI]';
+                btn.classList.add('done');
+                btn.disabled = true;
+                updateStats();
+            }
+        }
+
+        function updateStats() {
+            let completed = JSON.parse(localStorage.getItem('ziyadiCompleted') || '[]');
+            let count = completed.length;
+            let stars = '★'.repeat(count) + '☆'.repeat(8-count);
+            let name = localStorage.getItem('ziyadiHackerName') || 'HACKER';
+            
+            let status = '';
+            if (count === 8) {
+                status = '<br>> STATUS: <span style="color:#ff0000;text-shadow:0 0 10px #ff0000;">ZIYADI BABA MASTER HACKER ✓</span>';
+            } else if (count >= 5) {
+                status = '<br>> STATUS: SENIOR HACKER';
+            } else if (count >= 3) {
+                status = '<br>> STATUS: JUNIOR HACKER';
+            } else {
+                status = '<br>> STATUS: NOOB HACKER';
+            }
+            
+            document.getElementById('statsBox').innerHTML = 
+                `> HACKER: ${name.toUpperCase()}<br>> PROGRESS: ${count}/8 DƏRS ${stars}${status}`;
         }
         
         window.addEventListener('resize', () => {
