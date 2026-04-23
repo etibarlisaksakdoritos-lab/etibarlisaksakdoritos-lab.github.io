@@ -52,7 +52,7 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 <div id="app"></div>
 
 <audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/08/02/audio_4d2b3a5f65.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5d3c0c3b7d.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -65,7 +65,7 @@ if(new URLSearchParams(location.search).get('admin')===ADMIN_KEY){localStorage.s
 const isAdmin=()=>localStorage.getItem('admin')===ADMIN_KEY;
 if(isAdmin()){$('#adminBadge').style.display='block'}
 
-// MUSIC - NAZAR MAHNISI
+// MUSIC - NAZAR BEAT
 const music=$('#bgMusic');let soundOn=false;
 $('#soundBtn').onclick=()=>{soundOn=!soundOn;soundOn?music.play():music.pause();$('#soundBtn').textContent=soundOn?'🔊':'🔇'}
 
