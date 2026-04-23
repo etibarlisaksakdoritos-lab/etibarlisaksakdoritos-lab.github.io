@@ -10,8 +10,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidden;cursor:crosshair}
 #matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
-.admin{position:fixed;top:15px;left:15px;z-index:99;background:rgba(0,0,0,.9);border:1px solid #f00;padding:5px 12px;font-size:.7rem;color:#f00;text-shadow:0 0 8px #f00;font-weight:900}
-.admin::before{content:"● ";animation:blink.8s infinite}
 .create-site-btn{position:fixed;top:15px;right:15px;z-index:999;background:rgba(0,0,0,.9);border:1px solid #0ff;padding:5px 12px;font-size:.65rem;color:#0ff;text-shadow:0 0 8px #0ff;font-family:'Orbitron';cursor:pointer;transition:.3s;-webkit-tap-highlight-color:transparent}
 .create-site-btn:active{background:#0ff;color:#000;box-shadow:0 0 20px #0ff}
 .content{position:relative;z-index:10;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh;text-align:center;padding:20px}
@@ -33,8 +31,6 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .lesson-box::-webkit-scrollbar-track{background:#000}
 .lesson-box::-webkit-scrollbar-thumb{background:#0f0}
 .code-block{background:#111;padding:10px;border-left:3px solid #0f0;font-family:monospace;margin:10px 0;white-space:pre-wrap}
-.download-btn{background:#f00;border:2px solid #f00;color:#fff;padding:12px 30px;font-size:1rem;font-family:'Orbitron';cursor:pointer;text-transform:uppercase;transition:.3s;box-shadow:0 0 20px #f00;margin-top:20px;text-decoration:none;display:inline-block;position:relative;z-index:999}
-.download-btn:active{background:#000;color:#f00;box-shadow:0 0 40px #f00}
 .stats-box{background:rgba(0,255,0,.1);border:2px solid #0f0;padding:15px;margin-bottom:15px;text-align:center;font-size:1.1rem;text-shadow:0 0 10px #0f0}
 .lesson-item{margin-bottom:25px;padding:15px;border:1px solid #030;transition:.3s}
 .lesson-item.completed{border:1px solid #0f0;background:rgba(0,255,0,.05);box-shadow:0 0 15px #0f0}
@@ -49,13 +45,6 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .quest-btn{background:transparent;border:2px solid #FFD700;color:#FFD700;padding:10px 25px;font-size:.9rem;font-family:'Orbitron';cursor:pointer;text-transform:uppercase;transition:.3s;box-shadow:0 0 15px #FFD700;margin-top:10px;position:relative;z-index:999}
 .quest-btn:active{background:#FFD700;color:#000}
 .medal-counter{display:inline-block;margin-left:10px;font-size:1.2rem}
-.code-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;background:rgba(0,0,0,.95);border:3px solid #FFD700;padding:30px;text-align:center;box-shadow:0 0 50px #FFD700;animation:blink .5s infinite;max-width:90%}
-.leaderboard-box{background:rgba(255,0,255,.1);border:2px solid #f0f;padding:15px;margin-top:15px;text-align:left;box-shadow:0 0 20px #f0f}
-.leaderboard-title{color:#f0f;font-size:1.1rem;text-align:center;margin-bottom:10px;text-shadow:0 0 10px #f0f}
-.leaderboard-item{padding:8px;border-bottom:1px solid #303;color:#f0f;font-size:.85rem;display:flex;justify-content:space-between}
-.leaderboard-item.me{background:rgba(255,0,255,.2);font-weight:900}
-.share-btn{background:transparent;border:2px solid #f0f;color:#f0f;padding:8px 20px;font-size:.8rem;font-family:'Orbitron';cursor:pointer;text-transform:uppercase;transition:.3s;box-shadow:0 0 15px #f0f;margin-top:10px;width:100%;position:relative;z-index:999}
-.share-btn:active{background:#f0f;color:#000}
 .editor-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);z-index:9999;display:flex;justify-content:center;align-items:center;padding:20px}
 .editor-box{background:#000;border:2px solid #0ff;padding:20px;max-width:900px;width:100%;height:90vh;display:flex;flex-direction:column;box-shadow:0 0 40px #0ff}
 .editor-header{color:#0ff;font-size:1.2rem;text-align:center;margin-bottom:15px;text-shadow:0 0 10px #0ff}
@@ -67,36 +56,33 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .editor-btn.run{border-color:#0f0;color:#0f0}
 .editor-btn.run:active{background:#0f0;color:#000}
 .editor-close{position:absolute;top:10px;right:15px;background:transparent;border:1px solid #f00;color:#f00;padding:5px 10px;cursor:pointer;font-family:'Orbitron';z-index:9999}
-.about-section{background:rgba(0,0,0,.9);border-top:2px solid #0f0;padding:30px 20px;margin-top:40px;text-align:center;font-size:.8rem;line-height:1.8;color:#0f0;text-shadow:0 0 5px #0f0;position:relative;z-index:10}
 .loading{color:#FFD700;animation:blink 1s infinite}
 .nav-btns{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
 .nav-btn{background:transparent;border:2px solid #0f0;color:#0f0;padding:8px 20px;font-size:1.5rem;font-family:'Orbitron';cursor:pointer;transition:.3s;box-shadow:0 0 15px #0f0}
 .nav-btn:active{background:#0f0;color:#000}
 .nav-btn:disabled{opacity:0.3;cursor:not-allowed}
 .lesson-counter{color:#0f0;font-size:1.1rem;text-shadow:0 0 10px #0f0}
-@media(max-width:768px){.glitch{font-size:2rem}.warning{font-size:1rem}.lesson-box{max-width:95%;font-size:.75rem;max-height:55vh}.stats-box{font-size:.9rem}.create-site-btn{font-size:.55rem;padding:4px 8px}.about-section{font-size:.7rem;padding:20px 15px}.editor-btns{flex-direction:column}}
+@media(max-width:768px){.glitch{font-size:2rem}.warning{font-size:1rem}.lesson-box{max-width:95%;font-size:.75rem;max-height:55vh}.stats-box{font-size:.9rem}.create-site-btn{font-size:.55rem;padding:4px 8px}.editor-btns{flex-direction:column}}
 </style>
 </head>
 <body>
 <canvas id="matrix"></canvas>
-<div class="admin" id="adminBadge" style="display:none">ADMIN ONLINE</div>
-<button class="create-site-btn" onclick="playBeep();vibrate(50);openEditor()">[ KOD YAZ + İŞLƏT ]</button>
+<button class="create-site-btn" onclick="openEditor()">[ KOD YAZ + İŞLƏT ]</button>
 <audio id="bgMusic" loop><source src="./nazar.mp3" type="audio/mpeg"></audio>
 <audio id="beepSound"><source src="data:audio/wav;base64,UklGRlIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ4AAAAAAAD//wAA//8AAP//AAD//wAA" type="audio/wav"></audio>
 <audio id="alarmSound"><source src="data:audio/wav;base64,UklGRjwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQgAAACAgICAgICAgICAgICAgICA" type="audio/wav"></audio>
-<audio id="coinSound"><source src="data:audio/wav;base64,UklGRl4AAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVAAAAAAgICA//8AAP//AAD//wAA//8AAP//AAD//wAA" type="audio/wav"></audio>
 <div id="allContent">
 <div class="content" id="mainContent">
 <div class="glitch">SİSTEMƏ SIZILIR</div>
 <div class="warning">⚠ İCAZƏSİZ GİRİŞ AŞKARLANDI ⚠</div>
-<button class="access-btn" onclick="playBeep();vibrate(50);startHack()">[ SİSTEMƏ SIZ ]</button>
+<button class="access-btn" onclick="startHack()">[ SİSTEMƏ SIZ ]</button>
 </div>
 <div class="content hidden" id="terminalContent">
 <div class="terminal" id="terminal"></div>
 <div class="password-box" id="passwordBox">
 <div>> GİRİŞ ŞİFRƏSİNİ DAXİL ET:</div>
-<input type="text" class="password-input" id="passInput" placeholder="doritos" onkeypress="if(event.key==='Enter'){playBeep();vibrate(50);checkPassword()}">
-<button class="access-btn" onclick="playBeep();vibrate(50);checkPassword()" style="padding:10px 20px;margin-top:10px">[ GİR ]</button>
+<input type="text" class="password-input" id="passInput" placeholder="doritos" onkeypress="if(event.key==='Enter'){checkPassword()}">
+<button class="access-btn" onclick="checkPassword()" style="padding:10px 20px;margin-top:10px">[ GİR ]</button>
 <div class="final-message hidden" id="finalMsg"></div>
 </div>
 </div>
@@ -105,146 +91,81 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 <div class="editor-box">
 <button class="editor-close" onclick="closeEditor()">[ X ]</button>
 <div class="editor-header">💻 ZIYADI BABA PYTHON TERMINAL 💻</div>
-<div style="color:#0ff;font-size:.8rem;margin-bottom:10px;text-align:left">> Real Python kodu yaz və işlət<br>> Nümunə: print("Salam Hacker")<br>> <span id="pyStatus" class="loading">Python yüklənir...</span></div>
-<textarea class="editor-textarea" id="codeEditor">print("ZIYADI BABA LEGENDARY")
-
-ad = "Hacker"
-yas = 999
-print(f"Salam {ad}, sənin {yas} IQ-un var")
-
-for i in range(5):
-    print(f"HACK #{i+1} TAMAMLANDI")</textarea>
+<div style="color:#0ff;font-size:.8rem;margin-bottom:10px;text-align:left">> Real Python kodu yaz və işlət<br>> <span id="pyStatus" class="loading">Python yüklənir...</span></div>
+<textarea class="editor-textarea" id="codeEditor">print("ZIYADI BABA LEGENDARY")</textarea>
 <div class="editor-output" id="codeOutput">> Output burada görünəcək...</div>
 <div class="editor-btns">
 <button class="editor-btn run" onclick="runPythonCode()">[ ▶ İŞLƏT ]</button>
 <button class="editor-btn" onclick="clearOutput()">[ TƏMİZLƏ ]</button>
-<button class="editor-btn" onclick="downloadCustomCode()">[ YÜKLƏ .PY ]</button>
 </div>
 </div>
 </div>
 <script>
-let pyodide=null;
-let pyodideReady=false;
-let currentLesson=1;
-async function loadPyodideAndPackages(){
-  pyodide=await loadPyodide();
-  pyodideReady=true;
-  $('#pyStatus').textContent='Python hazır ✓';
-  $('#pyStatus').className='';
-}
-loadPyodideAndPackages();
-
-const ADMIN_KEY="ZIYADIMARKA";
-const SECRET_CODES={ziyadi2026:10,matrix:5,admin:0,hacker:3,doritos:1,ziyadibaba:15};
+let pyodide=null,pyodideReady=false,currentLesson=1;
 const $=s=>document.querySelector(s);
 const app=$('#allContent');
 const lessons=[
-  {num:1,title:'PRINT - Ekrana yazdır',code:'print("ZIYADI BABA LEGENDARY")',desc:'Bu kod ekrana "ZIYADI BABA LEGENDARY" yazır'},
-  {num:2,title:'DƏYİŞƏN - Məlumat saxla',code:'ad = "Ziyadi"\nyas = 999\nprint(f"Salam {ad}, sənin {yas} IQ-un var")',desc:'Dəyişənlərlə məlumat saxlayıb istifadə edirsən'},
-  {num:3,title:'IF - Şərt yoxla',code:'sifre = "doritos"\nif sifre == "doritos":\n    print("GİRİŞ TƏSDİQLƏNDİ")\nelse:\n    print("YANLIŞ ŞİFRƏ")',desc:'Bizim saytın məntiqi elə budur qardaş 😂'},
-  {num:4,title:'FOR DÖVRÜ - Təkrarla',code:'for i in range(5):\n    print(f"HACK #{i+1} TAMAMLANDI")',desc:'5 dəfə "HACK TAMAMLANDI" yazacaq'},
-  {num:5,title:'WHILE DÖVRÜ - Şərtli təkrar',code:'say = 0\nwhile say < 3:\n    print("Matrix yüklənir...")\n    say += 1',desc:'Şərt doğru olduğu müddətcə təkrarlanır'},
-  {num:6,title:'FUNKSİYA - Kodu təkrar istifadə et',code:'def salam_ver(ad):\n    return f"Xoş gəldin {ad}, sən əfsanəsən!"\n\nprint(salam_ver("Hacker"))',desc:'Funksiyalar kod təkrarının qarşısını alır'},
-  {num:7,title:'LİST - Birdən çox məlumat',code:'hackerler = ["Ziyadi", "Doritos", "Matrix"]\nfor h in hackerler:\n    print(f"LEGENDARY: {h}")',desc:'List ilə çox məlumatı bir yerdə saxla'},
-  {num:8,title:'BOSS SƏVİYYƏ: MATRIX KODU',code:'import random\nwhile True:\n    print(random.choice([\'0\',\'1\']), end=\'\')',desc:'Bizim arxadakı matrix elə budur. Sonsuz 0 və 1 😎'}
+{num:1,title:'PRINT - Ekrana yazdır',code:'print("ZIYADI BABA LEGENDARY")',desc:'Bu kod ekrana yazır'},
+{num:2,title:'DƏYİŞƏN - Məlumat saxla',code:'ad = "Ziyadi"\nyas = 999\nprint(f"Salam {ad}, sənin {yas} IQ-un var")',desc:'Dəyişənlərlə məlumat saxla'},
+{num:3,title:'IF - Şərt yoxla',code:'sifre = "doritos"\nif sifre == "doritos":\n    print("GİRİŞ TƏSDİQLƏNDİ")\nelse:\n    print("YANLIŞ ŞİFRƏ")',desc:'Bizim saytın məntiqi'},
+{num:4,title:'FOR DÖVRÜ - Təkrarla',code:'for i in range(5):\n    print(f"HACK #{i+1} TAMAMLANDI")',desc:'5 dəfə təkrar'},
+{num:5,title:'WHILE DÖVRÜ - Şərtli təkrar',code:'say = 0\nwhile say < 3:\n    print("Matrix yüklənir...")\n    say += 1',desc:'Şərt doğru olduqca'},
+{num:6,title:'FUNKSİYA - Təkrar istifadə',code:'def salam_ver(ad):\n    return f"Xoş gəldin {ad}"\n\nprint(salam_ver("Hacker"))',desc:'Funksiyalar kod təkrarını azaldır'},
+{num:7,title:'LİST - Çox məlumat',code:'hackerler = ["Ziyadi", "Doritos", "Matrix"]\nfor h in hackerler:\n    print(f"LEGENDARY: {h}")',desc:'List ilə çox məlumat'},
+{num:8,title:'BOSS: MATRIX KODU',code:'import random\nwhile True:\n    print(random.choice([\'0\',\'1\']), end=\'\')',desc:'Arxadakı matrix budur'}
 ];
 
 function playBeep(){const s=$('#beepSound');s.currentTime=0;s.play().catch(e=>{})}
 function playAlarm(){const s=$('#alarmSound');s.currentTime=0;s.play().catch(e=>{})}
-function playCoin(){const s=$('#coinSound');s.currentTime=0;s.play().catch(e=>{})}
 function vibrate(ms){if(navigator.vibrate)navigator.vibrate(ms)}
 function openEditor(){playBeep();$('#editorOverlay').classList.remove('hidden')}
 function closeEditor(){playBeep();$('#editorOverlay').classList.add('hidden')}
 function clearOutput(){$('#codeOutput').textContent='> Output təmizləndi...'}
-function downloadCustomCode(){playBeep();vibrate(100);const code=$('#codeEditor').value;const blob=new Blob(['\uFEFF'+code],{type:'text/x-python;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='ziyadi_baba_kod.py';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);alert('✅ PYTHON FAYLIN YÜKLƏNDİ ✅')}
 async function runPythonCode(){
-  if(!pyodideReady){
-    $('#codeOutput').textContent='> Python hələ yüklənir... 5 saniyə gözlə';
-    return;
-  }
-  playBeep();
-  vibrate(50);
-  const code=$('#codeEditor').value;
-  $('#codeOutput').textContent='> İşlədilir...\n';
-  try{
-    pyodide.runPython(`
-import sys
-from io import StringIO
-sys.stdout = StringIO()
-sys.stderr = StringIO()
-`);
-    await pyodide.runPythonAsync(code);
-    const stdout=pyodide.runPython("sys.stdout.getvalue()");
-    const stderr=pyodide.runPython("sys.stderr.getvalue()");
-    if(stderr){
-      $('#codeOutput').textContent='> XƏTA:\n'+stderr;
-    }else{
-      $('#codeOutput').textContent='> OUTPUT:\n'+stdout;
-    }
-  }catch(err){
-    $('#codeOutput').textContent='> XƏTA:\n'+err.message;
-  }
+if(!pyodideReady){$('#codeOutput').textContent='> Python hələ yüklənir...';return}
+playBeep();vibrate(50);const code=$('#codeEditor').value;$('#codeOutput').textContent='> İşlədilir...\n';
+try{
+pyodide.runPython(`import sys\nfrom io import StringIO\nsys.stdout = StringIO()\nsys.stderr = StringIO()`);
+await pyodide.runPythonAsync(code);
+const stdout=pyodide.runPython("sys.stdout.getvalue()");
+const stderr=pyodide.runPython("sys.stderr.getvalue()");
+$('#codeOutput').textContent=stderr?'> XƏTA:\n'+stderr:'> OUTPUT:\n'+stdout;
+}catch(err){$('#codeOutput').textContent='> XƏTA:\n'+err.message}
 }
-const urlParams=new URLSearchParams(location.search);
-const kodParam=urlParams.get('kod');
-const adminParam=urlParams.get('admin');
-const shareName=urlParams.get('n');
-const shareMedal=urlParams.get('m');
-if(adminParam===ADMIN_KEY){localStorage.setItem('admin',ADMIN_KEY);history.replaceState({},'',location.pathname)}
-if(kodParam&&SECRET_CODES[kodParam]!==undefined){
-  const usedCodes=JSON.parse(localStorage.getItem('ziyadiUsedCodes')||'[]');
-  if(!usedCodes.includes(kodParam)){
-    usedCodes.push(kodParam);
-    localStorage.setItem('ziyadiUsedCodes',JSON.stringify(usedCodes));
-    let goldMedals=parseInt(localStorage.getItem('ziyadiGoldMedals')||'0');
-    if(kodParam==='admin'){
-      localStorage.setItem('ziyadiCompleted',JSON.stringify([1,2,3,4,5,6,7,8]));
-      localStorage.setItem('bossDone','true');
-      setTimeout(()=>{showCodePopup('🔥 ADMIN KOD AKTIVLƏŞDİ 🔥','BOSS LEVEL AÇILDI + MASTER HACKER OLDUN')},500);
-    }else{
-      goldMedals+=SECRET_CODES[kodParam];
-      localStorage.setItem('ziyadiGoldMedals',goldMedals);
-      setTimeout(()=>{playCoin();showCodePopup('🎁 GİZLİ KOD TAPILDI 🎁','+'+SECRET_CODES[kodParam]+' QIZIL MEDAL QAZANDIN\nCəmi: '+goldMedals+' 🏅')},500);
-    }
-    history.replaceState({},'',location.pathname);
-  }
-}
-if(shareName&&shareMedal){
-  const leaders=JSON.parse(localStorage.getItem('ziyadiLeaders')||'[]');
-  const exists=leaders.find(l=>l.name===shareName);
-  if(!exists){leaders.push({name:shareName,medal:parseInt(shareMedal)});leaders.sort((a,b)=>b.medal-a.medal);localStorage.setItem('ziyadiLeaders',JSON.stringify(leaders.slice(0,10)))}
-  history.replaceState({},'',location.pathname);
-}
-function showCodePopup(title,msg){
-  const div=document.createElement('div');
-  div.className='code-popup';
-  div.innerHTML=`<div style="font-size:1.5rem;color:#FFD700;margin-bottom:15px">${title}</div><div style="font-size:1rem;color:#FFD700;margin-bottom:20px;white-space:pre-wrap">${msg}</div><button class="access-btn" onclick="this.parentElement.remove();playBeep();vibrate(50)">[ BAĞLA ]</button>`;
-  document.body.appendChild(div);
-  vibrate([200,100,200]);
-}
-const isAdmin=()=>localStorage.getItem('admin')===ADMIN_KEY;
-if(isAdmin()){$('#adminBadge').style.display='block'}
+
 const canvas=$('#matrix'),ctx=canvas.getContext('2d');
 function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
 resize();window.onresize=resize;
-const matrix="ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
-const matrixArray=matrix.split("");
-const fontSize=10,columns=canvas.width/fontSize,drops=Array(Math.floor(columns)).fill(1);
-let matrixSpeed=35,matrixInterval=setInterval(drawMatrix,matrixSpeed);
-function drawMatrix(){ctx.fillStyle='rgba(0,0,0,.04)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#0f0';ctx.font=fontSize+'px monospace';for(let i=0;i<drops.length;i++){const text=matrixArray[Math.floor(Math.random()*matrixArray.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>canvas.height&&Math.random()>.975)drops[i]=0;drops[i]++}}
-function downloadLessons(){playBeep();vibrate(100);const codeContent=`# ZIYADI BABA HACKER AKADEMIYASI - PYTHON DERSLERI\n# Seviyye 1: PRINT - Ekrana yazdir\nprint("ZIYADI BABA LEGENDARY")\n\n# Seviyye 2: DEYISEN - Melumat saxla\nad = "Ziyadi"\nyas = 999\nprint(f"Salam {ad}, senin {yas} IQ-un var")\n\n# Seviyye 3: IF - Sert yoxla\nsifre = "doritos"\nif sifre == "doritos":\n    print("GIRIS TESDIQLENDI")\nelse:\n    print("YANLIS SIFRE")\n\n# Seviyye 4: FOR DOVRU - Tekrarla\nfor i in range(5):\n    print(f"HACK #{i+1} TAMAMLANDI")\n\n# Seviyye 5: WHILE DOVRU - Sertli tekrar\nsay = 0\nwhile say < 3:\n    print("Matrix yuklenir...")\n    say += 1\n\n# Seviyye 6: FUNKSIYA - Kodu tekrar istifade et\ndef salam_ver(ad):\n    return f"Xos geldin {ad}, sen efsanesen!"\n\nprint(salam_ver("Hacker"))\n\n# Seviyye 7: LIST - Birden cox melumat saxla\nhackerler = ["Ziyadi", "Doritos", "Matrix"]\nfor h in hackerler:\n    print(f"LEGENDARY: {h}")\n\n# BOSS SEVIYYE: MATRIX KODU\nimport random\nwhile True:\n    print(random.choice(['0','1']), end='')\n\n# ZIYADI BABA DEYIR: KOPYALA, OYREN, HACK ELE\n# Admin seviyyesi: PYTHON HACKER ✓`;const blob=new Blob(['\uFEFF'+codeContent],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='ziyadi_baba_python_dersleri.py';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
-function startHack(){const music=$('#bgMusic');music.play().catch(e=>console.log('İlk play bloklandı'));$('#mainContent').classList.add('hidden');$('#terminalContent').classList.remove('hidden');const terminal=$('#terminal');const lines=['> Firewall bypass edilir...','> Root access əldə edilir...','> Şifrələnmiş fayllar açılır...','> Məlumatlar kopyalanır...','> İzlər silinir...','> SİSTEMƏ UĞURLA SIZILDI ✓','> ','> Sən həqiqəti görməyə hazırsan?'];let i=0;function typeLine(){if(i<lines.length){const line=document.createElement('div');line.className='terminal-line';line.style.animationDelay=i*.3+'s';line.textContent=lines[i];terminal.appendChild(line);i++;setTimeout(typeLine,800)}else{setTimeout(()=>{$('#passwordBox').style.opacity='1'},500)}}typeLine()}
-function checkPassword(){const pass=$('#passInput').value.trim().toLowerCase(),msg=$('#finalMsg');msg.classList.remove('hidden');if(pass==='doritos'){msg.textContent='GİRİŞ TƏSDİQLƏNDİ ✓';msg.style.color='#0f0';vibrate(100);setTimeout(()=>{loadAcademy()},1000)}else{msg.textContent='YANLIŞ ŞİFRƏ ✗';msg.style.color='#f00';$('#passInput').value='';vibrate([50,50,50])}}
-function loadAcademy(){let hackerName=localStorage.getItem('ziyadiHackerName')||'';if(!hackerName){app.innerHTML=`<div class="content"><div style="font-size:2rem;margin-bottom:20px">HACKER ADINI DAXİL ET</div><div class="name-box"><input type="text" class="password-input" id="nameInput" placeholder="Adın" maxlength="15"><br><button class="access-btn" onclick="playBeep();vibrate(50);saveName()">[ BAŞLA ]</button></div></div>`}else{showLessons(hackerName)}$('#bgMusic').play().catch(e=>console.log('Auto play bloklandı'))}
-function saveName(){const name=$('#nameInput').value.trim();if(name.length<2){alert('Ad ən azı 2 hərf olmalıdır qardaş!');vibrate(200);return}localStorage.setItem('ziyadiHackerName',name);updateLeaderboard(name,0);showLessons(name)}
-function getToday(){return new Date().toISOString().split('T')[0]}
-function getDailyQuest(){const quests=['Bu gün 50 dəfə HACK yaz terminala','Şifrə tapmacası: doritos-un tərsini yaz','Matrix-də 3 ədəd "ZIYADI" sözü tap','Kodu yüklə düyməsini 5 dəfə bas','Boss level-i 2 dəfə aktiv et','10 dəfə ekrana toxun/tıkla','Adını tərsinə yaz konsola'];const day=new Date().getDate();return quests[day%quests.length]}
-function completeDailyQuest(){playBeep();vibrate(100);const today=getToday();const lastQuest=localStorage.getItem('ziyadiLastQuest');if(lastQuest===today)return;localStorage.setItem('ziyadiLastQuest',today);let goldMedals=parseInt(localStorage.getItem('ziyadiGoldMedals')||'0');goldMedals++;localStorage.setItem('ziyadiGoldMedals',goldMedals);const name=localStorage.getItem('ziyadiHackerName');updateLeaderboard(name,goldMedals);vibrate([100,50,100]);alert('🏆 DAILY QUEST TAMAMLANDI! 🏆\n\n+1 QIZIL MEDAL QAZANDIN\nCəmi: '+goldMedals+' 🏅');showLessons(name)}
-function updateLeaderboard(name,medal){let leaders=JSON.parse(localStorage.getItem('ziyadiLeaders')||'[]');const idx=leaders.findIndex(l=>l.name===name);if(idx>-1){leaders[idx].medal=medal}else{leaders.push({name:name,medal:medal})}leaders.sort((a,b)=>b.medal-a.medal);localStorage.setItem('ziyadiLeaders',JSON.stringify(leaders.slice(0,10)))}
-function shareScore(){playBeep();vibrate(50);const name=localStorage.getItem('ziyadiHackerName');const medal=localStorage.getItem('ziyadiGoldMedals')||'0';const url=location.origin+location.pathname+'?n='+encodeURIComponent(name)+'&m='+medal;navigator.clipboard.writeText(url);alert('🔗 LİNK KOPYALANDI 🔗\n\n'+url+'\n\nDostlarına göndər! Onlar bassa sənin adın Leaderboard-a düşəcək 🏆')}
+const matrix="ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}".split("");
+const fontSize=10,drops=Array(Math.floor(canvas.width/fontSize)).fill(1);
+setInterval(()=>{ctx.fillStyle='rgba(0,0,0,.04)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#0f0';ctx.font=fontSize+'px monospace';for(let i=0;i<drops.length;i++){const text=matrix[Math.floor(Math.random()*matrix.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>canvas.height&&Math.random()>.975)drops[i]=0;drops[i]++}},35);
+
+function startHack(){playBeep();$('#mainContent').classList.add('hidden');$('#terminalContent').classList.remove('hidden');const terminal=$('#terminal');const lines=['> Firewall bypass edilir...','> Root access əldə edilir...','> Şifrələnmiş fayllar açılır...','> Məlumatlar kopyalanır...','> İzlər silinir...','> SİSTEMƏ UĞURLA SIZILDI ✓','> ','> Sən həqiqəti görməyə hazırsan?'];let i=0;function typeLine(){if(i<lines.length){const line=document.createElement('div');line.className='terminal-line';line.style.animationDelay=i*.3+'s';line.textContent=lines[i];terminal.appendChild(line);i++;setTimeout(typeLine,800)}else{setTimeout(()=>{$('#passwordBox').style.opacity='1'},500)}}typeLine()}
+function checkPassword(){playBeep();const pass=$('#passInput').value.trim().toLowerCase(),msg=$('#finalMsg');msg.classList.remove('hidden');if(pass==='doritos'){msg.textContent='GİRİŞ TƏSDİQLƏNDİ ✓';msg.style.color='#0f0';vibrate(100);setTimeout(()=>{loadAcademy()},1000)}else{msg.textContent='YANLIŞ ŞİFRƏ ✗';msg.style.color='#f00';$('#passInput').value='';vibrate([50,50,50])}}
+function loadAcademy(){let hackerName=localStorage.getItem('ziyadiHackerName')||'';if(!hackerName){app.innerHTML=`<div class="content"><div style="font-size:2rem;margin-bottom:20px">HACKER ADINI DAXİL ET</div><div class="name-box"><input type="text" class="password-input" id="nameInput" placeholder="Adın" maxlength="15"><br><button class="access-btn" onclick="saveName()">[ BAŞLA ]</button></div></div>`}else{showLessons(hackerName)}}
+function saveName(){const name=$('#nameInput').value.trim();if(name.length<2){alert('Ad ən azı 2 hərf olmalıdır!');vibrate(200);return}localStorage.setItem('ziyadiHackerName',name);showLessons(name)}
 function updateStats(){const completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');const goldMedals=parseInt(localStorage.getItem('ziyadiGoldMedals')||'0');const total=8;const percent=Math.round(completed.length/total*100);$('#statsBox').innerHTML=`PROGRESS: ${completed.length}/${total} DƏRS | ${percent}% TAMAMLANDI | 🏅 ${goldMedals} QIZIL MEDAL`}
 function nextLesson(){if(currentLesson<8){playBeep();vibrate(50);currentLesson++;showLessons(localStorage.getItem('ziyadiHackerName'))}}
 function prevLesson(){if(currentLesson>1){playBeep();vibrate(50);currentLesson--;showLessons(localStorage.getItem('ziyadiHackerName'))}}
-function generateLesson(num){const lesson=lessons[num-1];const completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');const done=completed.includes(num);const isBoss=num===8&&completed.length===7;if(isBoss&&!localStorage.getItem('bossDone')){return`<div class="lesson-item boss"><div style="font-size:1.2rem;font-weight:900;margin-bottom:10px;color:#f00;text-shadow:0 0 15px #f00">💀 BOSS LEVEL: MASTER HACK 💀</div><div style="font-size:.9rem;color:#f00;margin-bottom:10px">Təbriklər! 7 dərsi keçdin. İndi əsl hack zamanı:</div><div class="code-block">${lesson.code}</div><div style="font-size:.85rem;color:#f00;margin-top:8px">${lesson.desc}</div><button class="boss-btn" onclick="playBeep();vibrate(100);bossActivated()">[ BOSS-U MƏHV ET ]</button></div>`}return`<div class="lesson-item ${done?'completed':''}"><div style="font-size:1rem;font-weight:700;margin-bottom:10px;color:${done?'#0f0':'#0f0'}">${done?'✓ ':''}SƏVİYYƏ ${num}: ${lesson.title}</div><div class="code-block">${lesson.code}</div><div style="font-size:.85rem;color:#0f0;margin-top:8px">// ${lesson.desc}</div><button class="complete-btn ${done?'done':''}" onclick="playBeep();vibrate(50);${done?'':'completeLesson('+num+')'}" ${done?'disabled':''}>${done?'[ TAMAMLANDI ✓ ]':'[ DƏRSİ BİTİRDİM ]'}</button></div>`}
-function completeLesson(num){playBeep();vibrate(100);let completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');if(!completed.includes(num)){completed.push(num);localStorage.setItem('ziyadiCompleted',JSON.stringify(completed));const name=localStorage.getItem('ziyadiHackerName');updateStats();showLessons(name);if(completed.length===8){playAlarm();vibrate([200,100,200]);setTimeout(()=>{alert('🔥 BOSS LEVEL AÇILDI! 🔥\n\n8 dərsin hamısını bitirdin!\nİndi MASTER HACKER oldun!')},500)}}}
-function bossActivated(){playAlarm();
+function generateLesson(num){const lesson=lessons[num-1];const completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');const done=completed.includes(num);const isBoss=num===8&&completed.length===7;if(isBoss&&!localStorage.getItem('bossDone')){return`<div class="lesson-item boss"><div style="font-size:1.2rem;font-weight:900;margin-bottom:10px;color:#f00;text-shadow:0 0 15px #f00">💀 BOSS LEVEL: MASTER HACK 💀</div><div style="font-size:.9rem;color:#f00;margin-bottom:10px">Təbriklər! 7 dərsi keçdin. İndi əsl hack zamanı:</div><div class="code-block">${lesson.code}</div><div style="font-size:.85rem;color:#f00;margin-top:8px">${lesson.desc}</div><button class="boss-btn" onclick="playAlarm();vibrate(100);bossActivated()">[ BOSS-U MƏHV ET ]</button></div>`}return`<div class="lesson-item ${done?'completed':''}"><div style="font-size:1rem;font-weight:700;margin-bottom:10px;color:#0f0">${done?'✓ ':''}SƏVİYYƏ ${num}: ${lesson.title}</div><div class="code-block">${lesson.code}</div><div style="font-size:.85rem;color:#0f0;margin-top:8px">// ${lesson.desc}</div><button class="complete-btn ${done?'done':''}" onclick="playBeep();vibrate(50);${done?'':'completeLesson('+num+')'}" ${done?'disabled':''}>${done?'[ TAMAMLANDI ✓ ]':'[ DƏRSİ BİTİRDİM ]'}</button></div>`}
+function completeLesson(num){playBeep();vibrate(100);let completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');if(!completed.includes(num)){completed.push(num);localStorage.setItem('ziyadiCompleted',JSON.stringify(completed));const name=localStorage.getItem('ziyadiHackerName');updateStats();showLessons(name);if(completed.length===8){playAlarm();vibrate([200,100,200]);setTimeout(()=>{alert('🔥 BOSS LEVEL AÇILDI! 🔥\n\n8 dərsin hamısını bitirdin!')},500)}}}
+function bossActivated(){playAlarm();vibrate([300,100,300]);localStorage.setItem('bossDone','true');localStorage.setItem('ziyadiCompleted',JSON.stringify([1,2,3,4,5,6,7,8]));const name=localStorage.getItem('ziyadiHackerName');let goldMedals=parseInt(localStorage.getItem('ziyadiGoldMedals')||'0');goldMedals+=10;localStorage.setItem('ziyadiGoldMedals',goldMedals);alert('💀 BOSS MƏHV EDİLDİ 💀\n\nTəbriklər '+name+'!\nSən MASTER HACKER oldun!\n\n🏅 +10 QIZIL MEDAL');showLessons(name)}
+function showLessons(hackerName){
+const completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');
+const goldMedals=parseInt(localStorage.getItem('ziyadiGoldMedals')||'0');
+app.innerHTML=`<div class="content"><div style="font-size:2.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #0f0,0 0 40px #0f0;animation:blink .5s infinite;margin-bottom:10px">ZIYADI BABA</div><div style="font-size:1.1rem;color:#0f0;text-shadow:0 0 20px #0f0;margin-bottom:10px">✓ XOŞ GƏLDİN ${hackerName.toUpperCase()} ✓</div><div class="stats-box" id="statsBox"></div><div class="lesson-box"><div class="nav-btns"><button class="nav-btn" onclick="prevLesson()" ${currentLesson===1?'disabled':''}><</button><div class="lesson-counter">DƏRS ${currentLesson}/8</div><button class="nav-btn" onclick="nextLesson()" ${currentLesson===8?'disabled':''}>></button></div>${generateLesson(currentLesson)}</div></div>`;
+updateStats();
+}
+
+async function initPyodide(){
+try{
+pyodide=await loadPyodide();
+pyodideReady=true;
+$('#pyStatus').textContent='Python hazır ✓';
+$('#pyStatus').className='';
+}catch(e){$('#pyStatus').textContent='Python yüklənmədi';}
+}
+initPyodide();
+</script>
+</body>
+</html>
