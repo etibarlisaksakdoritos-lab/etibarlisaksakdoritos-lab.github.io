@@ -121,7 +121,7 @@
             text-align: left;
             box-shadow: 0 0 30px #00ff00;
             overflow-y: auto;
-            max-height: 60vh;
+            max-height: 55vh;
         }
         .lesson-box::-webkit-scrollbar {
             width: 8px;
@@ -140,10 +140,30 @@
             margin: 10px 0;
             white-space: pre-wrap;
         }
+        .download-btn {
+            background: #ff0000;
+            border: 2px solid #ff0000;
+            color: #fff;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px #ff0000;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .download-btn:hover {
+            background: #000;
+            color: #ff0000;
+            box-shadow: 0 0 40px #ff0000;
+        }
         @media (max-width: 768px) {
             .glitch { font-size: 2rem; }
             .warning { font-size: 1rem; }
-            .lesson-box { max-width: 95%; font-size: 0.8rem; }
+            .lesson-box { max-width: 95%; font-size: 0.75rem; max-height: 50vh; }
         }
     </style>
 </head>
@@ -202,6 +222,63 @@
             document.getElementById('bgMusic').play();
         }
         
+        function downloadLessons() {
+            const codeContent = `# ZIYADI BABA HACKER AKADEMİYASI - PYTHON DƏRSLƏRİ
+# Səviyyə 1: PRINT - Ekrana yazdır
+print("ZIYADI BABA LEGENDARY")
+
+# Səviyyə 2: DƏYİŞƏN - Məlumat saxla
+ad = "Ziyadi"
+yas = 999
+print(f"Salam {ad}, sənin {yas} IQ-un var")
+
+# Səviyyə 3: IF - Şərt yoxla
+sifre = "doritos"
+if sifre == "doritos":
+    print("GİRİŞ TƏSDİQLƏNDİ")
+else:
+    print("YANLIŞ ŞİFRƏ")
+
+# Səviyyə 4: FOR DÖVRÜ - Təkrarla
+for i in range(5):
+    print(f"HACK #{i+1} TAMAMLANDI")
+
+# Səviyyə 5: WHILE DÖVRÜ - Şərtli təkrar
+say = 0
+while say < 3:
+    print("Matrix yüklənir...")
+    say += 1
+
+# Səviyyə 6: FUNKSİYA - Kodu təkrar istifadə et
+def salam_ver(ad):
+    return f"Xoş gəldin {ad}, sən əfsanəsən!"
+
+print(salam_ver("Hacker"))
+
+# Səviyyə 7: LİST - Birdən çox məlumat saxla
+hackerler = ["Ziyadi", "Doritos", "Matrix"]
+for h in hackerler:
+    print(f"LEGENDARY: {h}")
+
+# BOSS SƏVİYYƏ: MATRIX KODU
+import random
+while True:
+    print(random.choice(['0','1']), end='')
+
+# ZIYADI BABA DEYİR: KOPYALA, ÖYRƏN, HACK ELƏ
+# Admin səviyyəsi: PYTHON HACKER ✓`;
+            
+            const blob = new Blob([codeContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ziyadi_baba_python_dersleri.py';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
         function startHack() {
             const music = document.getElementById('bgMusic');
             music.play().catch(e => console.log('İlk play bloklandı'));
@@ -256,7 +333,7 @@
                                 <div style="font-size:3.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;animation:blink 0.5s infinite;margin-bottom:20px;">ZIYADI BABA</div>
                                 <div style="font-size:1.3rem;color:#00ff00;text-shadow:0 0 20px #00ff00;margin-bottom:30px;">✓ HACKER AKADEMİYASINA XOŞ GƏLDİN ✓</div>
                                 
-                                <button class="access-btn" onclick="forceMusic()" style="margin-bottom:40px;">[ MAHNINI BAŞLAT ]</button>
+                                <button class="access-btn" onclick="forceMusic()" style="margin-bottom:20px;">[ MAHNINI BAŞLAT ]</button>
                                 
                                 <div class="lesson-box">
                                     <div style="font-size:1.2rem;margin-bottom:15px;color:#00ff00;text-align:center;">🔥 DƏRS 1: PYTHON İLƏ HACK BAŞLAYIR 🔥</div>
@@ -293,6 +370,32 @@ else:
                                     </div>
 
                                     <div style="margin-bottom:25px;">
+                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 5: WHILE DÖVRÜ - Şərtli təkrar</div>
+                                        <div class="code-block">say = 0
+while say < 3:
+    print("Matrix yüklənir...")
+    say += 1</div>
+                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Şərt doğru olduğu müddətcə təkrarlanır</div>
+                                    </div>
+
+                                    <div style="margin-bottom:25px;">
+                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 6: FUNKSİYA - Kodu təkrar istifadə et</div>
+                                        <div class="code-block">def salam_ver(ad):
+    return f"Xoş gəldin {ad}, sən əfsanəsən!"
+
+print(salam_ver("Hacker"))</div>
+                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// Funksiyalar kod təkrarının qarşısını alır</div>
+                                    </div>
+
+                                    <div style="margin-bottom:25px;">
+                                        <div style="color:#ff0000;margin-bottom:8px;">> SƏVİYYƏ 7: LİST - Birdən çox məlumat</div>
+                                        <div class="code-block">hackerler = ["Ziyadi", "Doritos", "Matrix"]
+for h in hackerler:
+    print(f"LEGENDARY: {h}")</div>
+                                        <div style="font-size:0.85rem;margin-top:5px;color:#888;">// List ilə çox məlumatı bir yerdə saxla</div>
+                                    </div>
+
+                                    <div style="margin-bottom:25px;">
                                         <div style="color:#ff0000;margin-bottom:8px;">> BOSS SƏVİYYƏ: MATRIX KODU</div>
                                         <div class="code-block">import random
 while True:
@@ -303,6 +406,10 @@ while True:
                                     <div style="text-align:center;margin-top:30px;font-size:1rem;color:#00ff00;text-shadow:0 0 10px #00ff00;">
                                         > ZIYADI BABA DEYİR: KOPYALA, ÖYRƏN, HACK ELƏ <br>
                                         > Admin səviyyəsi: PYTHON HACKER ✓
+                                    </div>
+
+                                    <div style="text-align:center;">
+                                        <button class="download-btn" onclick="downloadLessons()">[ BÜTÜN KODLARI YÜKLƏ .PY ]</button>
                                     </div>
                                 </div>
                             </div>
