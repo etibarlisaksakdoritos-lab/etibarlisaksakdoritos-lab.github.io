@@ -17,8 +17,6 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .warn{font-size:1rem;margin:20px 0;color:#f00;text-shadow:0 0 10px #f00;animation:blink 1s infinite}
 .btn{background:transparent;border:2px solid #0f0;color:#0f0;padding:15px 30px;font-size:1rem;font-family:'Orbitron';cursor:pointer;text-transform:uppercase;box-shadow:0 0 20px #0f0;margin-top:20px;-webkit-tap-highlight-color:transparent}
 .btn:active{background:#0f0;color:#000}
-.hidden{display:none!important}
-.term{text-align:left;font-size:.85rem;line-height:1.6;max-width:600px}
 .input{background:#000;border:2px solid #0f0;color:#0f0;padding:10px 20px;font-family:'Orbitron';font-size:1rem;text-align:center;outline:none;box-shadow:0 0 15px #0f0;margin:10px;width:200px}
 .box{background:rgba(0,0,0,.85);border:2px solid #0f0;padding:15px;max-width:95%;width:850px;text-align:left;box-shadow:0 0 30px #0f0;overflow-y:auto;max-height:60vh;margin-top:15px}
 .code{background:#111;padding:10px;border-left:3px solid #0f0;font-family:monospace;margin:10px 0;white-space:pre-wrap;font-size:.8rem}
@@ -52,10 +50,11 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 <div id="app"></div>
 
 <audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5d3c0c3b7d.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a8493d.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+window.onload=function(){
 const ADMIN_KEY="ZIYADIMARKA";
 const $=s=>document.querySelector(s);
 const app=$('#app');
@@ -65,9 +64,9 @@ if(new URLSearchParams(location.search).get('admin')===ADMIN_KEY){localStorage.s
 const isAdmin=()=>localStorage.getItem('admin')===ADMIN_KEY;
 if(isAdmin()){$('#adminBadge').style.display='block'}
 
-// MUSIC - NAZAR BEAT
+// MUSIC - NAZAR TRAP BEAT
 const music=$('#bgMusic');let soundOn=false;
-$('#soundBtn').onclick=()=>{soundOn=!soundOn;soundOn?music.play():music.pause();$('#soundBtn').textContent=soundOn?'🔊':'🔇'}
+$('#soundBtn').onclick=()=>{soundOn=!soundOn;soundOn?music.play().catch(e=>console.log(e)):music.pause();$('#soundBtn').textContent=soundOn?'🔊':'🔇'}
 
 // MATRIX
 const c=$('#matrix'),x=c.getContext('2d');
@@ -77,7 +76,7 @@ const fs=10,cols=c.width/fs,drops=Array(cols).fill(1);
 setInterval(()=>{x.fillStyle='rgba(0,0,0,.04)';x.fillRect(0,0,c.width,c.height);x.fillStyle='#0f0';x.font=fs+'px monospace';
 for(let i=0;i<drops.length;i++){x.fillText('01'[Math.random()*2|0],i*fs,drops[i]*fs);if(drops[i]*fs>c.height&&Math.random()>.975)drops[i]=0;drops[i]++}},35);
 
-function showStart(){app.innerHTML=`<div class="wrap"><div class="title">SİSTEMƏ SIZILIR</div><div class="warn">⚠ İCAZƏSİZ GİRİŞ AŞKARLANDI ⚠</div><button class="btn" id="hackBtn">[ SİSTEMƏ SIZ ]</button></div>`;$('#hackBtn').onclick=()=>{if(!soundOn){soundOn=true;music.play();$('#soundBtn').textContent='🔊'};startHack()}}
+function showStart(){app.innerHTML=`<div class="wrap"><div class="title">SİSTEMƏ SIZILIR</div><div class="warn">⚠ İCAZƏSİZ GİRİŞ AŞKARLANDI ⚠</div><button class="btn" id="hackBtn">[ SİSTEMƏ SIZ ]</button></div>`;$('#hackBtn').onclick=()=>{if(!soundOn){soundOn=true;music.play().catch(e=>{});$('#soundBtn').textContent='🔊'};startHack()}}
 
 function startHack(){app.innerHTML=`<div class="wrap"><div class="term" id="term"></div><div id="passBox" style="opacity:0;margin-top:20px"><div>> GİRİŞ ŞİFRƏSİNİ DAXİL ET:</div><input type="text" class="input" id="pass" placeholder="doritos"><button class="btn" id="loginBtn" style="padding:10px 20px">[ GİR ]</button><div id="msg" style="margin-top:15px;font-size:1.2rem"></div></div></div>`;const t=$('#term'),lines=['> Firewall bypass edilir...','> Root access əldə edilir...','> Şifrələnmiş fayllar açılır...','> SİSTEMƏ UĞURLA SIZILDI ✓','> Sən həqiqəti görməyə hazırsan?'];let i=0;function type(){if(i<lines.length){t.innerHTML+=lines[i]+'<br>';i++;setTimeout(type,800)}else setTimeout(()=>$('#passBox').style.opacity='1',500)}type();$('#loginBtn').onclick=checkPass}
 
@@ -96,6 +95,7 @@ function downloadCode(){const code=`# ZIYADI BABA HACKER AKADEMIYASI\nprint("ZIY
 
 // BAŞLAT
 showStart();
+}
 </script>
 </body>
 </html>
