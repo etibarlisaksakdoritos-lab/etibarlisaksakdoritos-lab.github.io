@@ -23,6 +23,26 @@
             height: 100%;
             z-index: 1;
         }
+        .admin-badge {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+            background: rgba(0,0,0,0.9);
+            border: 1px solid #ff0000;
+            padding: 5px 12px;
+            font-size: 0.7rem;
+            color: #ff0000;
+            text-shadow: 0 0 8px #ff0000;
+            animation: blink 1.5s infinite;
+            display: none;
+            font-weight: 900;
+        }
+        .admin-badge::before {
+            content: "● ";
+            color: #ff0000;
+            animation: blink 0.8s infinite;
+        }
        .content {
             position: relative;
             z-index: 10;
@@ -199,9 +219,22 @@
         }
        .lesson-item.boss {
             border: 2px solid #ff0000;
-            background: rgba(255,0,0,0.1);
-            box-shadow: 0 0 25px #ff0000;
-            animation: blink 2s infinite;
+            background: rgba(255,0,0,0.15);
+            box-shadow: 0 0 35px #ff0000;
+            /* BLINK SİLİNDİ - İNDİ HƏMİŞƏ GÖRÜNÜR */
+        }
+       .boss-title {
+            color: #ff0000;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            text-shadow: 0 0 15px #ff0000;
+            font-weight: 900;
+        }
+       .boss-warning {
+            font-size: 0.85rem;
+            margin: 12px 0;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
         }
        .boss-btn {
             background: #ff0000;
@@ -215,7 +248,13 @@
             transition: all 0.3s;
             box-shadow: 0 0 30px #ff0000;
             margin-top: 10px;
-            animation: blink 1s infinite;
+        }
+       .boss-btn:disabled {
+            background: #330000;
+            border: 2px solid #330000;
+            color: #666;
+            cursor: default;
+            box-shadow: none;
         }
        .complete-btn {
             background: transparent;
@@ -273,6 +312,13 @@
             border: 1px solid #00ff00;
             font-weight: bold;
         }
+       .board-item.admin {
+            background: rgba(255,0,0,0.3);
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            text-shadow: 0 0 8px #ff0000;
+            font-weight: 900;
+        }
         @media (max-width: 480px) {
            .glitch { font-size: 1.8rem; }
            .warning { font-size: 0.9rem; }
@@ -281,11 +327,14 @@
            .medal { font-size: 1.1rem; }
            .board-item { font-size: 0.7rem; }
            .code-block { font-size: 0.7rem; }
+           .admin-badge { font-size: 0.6rem; top: 10px; left: 10px; padding: 4px 8px; }
         }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
+    
+    <div class="admin-badge" id="adminBadge">ADMIN ONLINE</div>
 
     <audio id="bgMusic" loop>
         <source src="./nazar.mp3" type="audio/mpeg">
@@ -310,7 +359,6 @@
     </div>
 
     <script>
-        // jsPDF-i try-catch ilə yüklə ki qırılmasın
         let jsPDF;
         try {
             const script = document.createElement('script');
@@ -318,6 +366,40 @@
             script.onload = () => { jsPDF = window.jspdf.jsPDF; };
             document.head.appendChild(script);
         } catch(e) { console.log('PDF kitabxanası yüklənmədi'); }
+
+        const ADMIN_KEY = "supersecret123"; // GİZLİ AÇAR - DƏYİŞƏ BİLƏRSƏN
+        const ADMIN_TIMEOUT = 3 * 60 * 1000;
+
+        function isAdmin() {
+            return localStorage.getItem('ziyadiAdmin') === ADMIN_KEY;
+        }
+
+        function checkAdminStatus() {
+            const adminTime = parseInt(localStorage.getItem('ziyadiAdminOnline') || '0');
+            const now = Date.now();
+            const isOnline = (now - adminTime) < ADMIN_TIMEOUT;
+            
+            if (isOnline) {
+                document.getElementById('adminBadge').style.display = 'block';
+            } else {
+                document.getElementById('adminBadge').style.display = 'none';
+            }
+            return isOnline;
+        }
+
+        function setAdminOnline() {
+            if (isAdmin()) {
+                localStorage.setItem('ziyadiAdminOnline', Date.now().toString());
+                document.getElementById('adminBadge').style.display = 'block';
+            }
+        }
+
+        setInterval(() => {
+            checkAdminStatus();
+            if (isAdmin()) setAdminOnline();
+        }, 20000);
+
+        checkAdminStatus();
 
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
@@ -492,6 +574,7 @@
                     </div>
                 `;
             } else {
+                if (isAdmin()) setAdminOnline();
                 showLessons(hackerName);
             }
             document.getElementById('bgMusic').play().catch(e => {});
@@ -510,6 +593,7 @@
         }
 
         function showLessons(hackerName) {
+            if (isAdmin()) setAdminOnline();
             let completed = JSON.parse(localStorage.getItem('ziyadiCompleted') || '[]');
             let bossUnlocked = completed.length === 8;
             let bossCompleted = localStorage.getItem('ziyadiBossCompleted') === 'true';
@@ -573,8 +657,8 @@
         function generateBossLevel(name, completed) {
             return `
                 <div class="lesson-item boss" id="bossLevel">
-                    <div style="color:#ff0000;margin-bottom:8px;font-size:1.1rem;animation:blink 0.5s infinite;">> SƏVİYYƏ 9: HACK THE MATRIX 🔒</div>
-                    <div style="font-size:0.85rem;margin:12px 0;color:#ff0000;">⚠ GİZLİ BOSS LEVEL AÇILDI ⚠</div>
+                    <div class="boss-title">> SƏVİYYƏ 9: HACK THE MATRIX 🔒</div>
+                    <div class="boss-warning">⚠ GİZLİ BOSS LEVEL AÇILDI ⚠</div>
                     <div class="code-block" style="border-left: 3px solid #ff0000;"># BOSS KODU: MATRIX-I ƏLƏ KEÇİR\nimport random\nwhile True:\n print(random.choice(['0','1']), end='') # ZIYADI BABA: ${name}</div>
                     <button class="boss-btn" onclick="activateBossMode()" ${completed? 'disabled' : ''}>
                         ${completed? '[✓ MATRIX HACK EDİLDİ]' : '[ 🔥 MATRIX-I HACK ELƏ 🔥 ]'}
@@ -636,6 +720,7 @@
             let stars = '★'.repeat(count) + '☆'.repeat(8-count);
             let name = localStorage.getItem('ziyadiHackerName') || 'HACKER';
             let bossDone = localStorage.getItem('ziyadiBossCompleted') === 'true';
+            let admin = isAdmin();
 
             let status = '';
             if (bossDone) {
@@ -648,6 +733,10 @@
                 status = '<br>> STATUS: JUNIOR HACKER';
             } else {
                 status = '<br>> STATUS: NOOB HACKER';
+            }
+
+            if (admin) {
+                status += '<br>> ROL: <span style="color:#ff0000;text-shadow:0 0 10px #ff0000;">ADMIN 👑</span>';
             }
 
             document.getElementById('statsBox').innerHTML =
@@ -667,58 +756,4 @@
                 { icon: '🥈', name: '5 Dərs', unlocked: count >= 5 },
                 { icon: '🥇', name: '8 Dərs', unlocked: count >= 8 },
                 { icon: '💀', name: 'Boss Killer', unlocked: bossDone },
-                { icon: '🌙', name: 'Gecə Bayquşu', unlocked: nightOwl }
-            ];
-
-            let medalHTML = '<div style="color:#FFD700;margin-bottom:5px;">🏆 MEDALLAR</div>';
-            medals.forEach(m => {
-                medalHTML += `<span class="medal ${m.unlocked? 'unlocked' : ''}" title="${m.name}">${m.icon}</span>`;
-            });
-
-            document.getElementById('medalBox').innerHTML = medalHTML;
-        }
-
-        function updateGlobalBoard(name, lessons, boss) {
-            let board = JSON.parse(localStorage.getItem('ziyadiGlobalBoard') || '[]');
-            let existing = board.findIndex(h => h.name === name);
-
-            const data = { name: name, lessons: lessons, boss: boss, time: Date.now() };
-
-            if (existing >= 0) {
-                board[existing] = data;
-            } else {
-                board.push(data);
-            }
-
-            board.sort((a, b) => {
-                if (a.boss!== b.boss) return b.boss - a.boss;
-                if (a.lessons!== b.lessons) return b.lessons - a.lessons;
-                return a.name.localeCompare(b.name);
-            });
-
-            localStorage.setItem('ziyadiGlobalBoard', JSON.stringify(board.slice(0, 20)));
-        }
-
-        function renderGlobalBoard() {
-            let board = JSON.parse(localStorage.getItem('ziyadiGlobalBoard') || '[]');
-            let currentName = localStorage.getItem('ziyadiHackerName');
-            let html = '<div style="color:#0088ff;margin-bottom:10px;text-align:center;">🌍 GLOBAL LEADERBOARD</div>';
-
-            if (board.length === 0) {
-                html += '<div style="text-align:center;color:#888;">Hələ heç kim yoxdur</div>';
-            } else {
-                board.forEach((h, i) => {
-                    const isMe = h.name === currentName;
-                    const bossIcon = h.boss? '💀' : '';
-                    html += `<div class="board-item ${isMe? 'me' : ''}">
-                        <span>${i+1}. ${h.name} ${bossIcon}</span>
-                        <span>${h.lessons}/8 ★</span>
-                    </div>`;
-                });
-            }
-
-            document.getElementById('globalBoard').innerHTML = html;
-        }
-    </script>
-</body>
-</html>
+                { icon: '
