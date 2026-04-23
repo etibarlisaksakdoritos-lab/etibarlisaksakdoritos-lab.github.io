@@ -121,7 +121,8 @@
             text-align: left;
             box-shadow: 0 0 30px #00ff00;
             overflow-y: auto;
-            max-height: 55vh;
+            max-height: 65vh;
+            margin-top: 20px;
         }
         .lesson-box::-webkit-scrollbar {
             width: 8px;
@@ -163,7 +164,7 @@
         @media (max-width: 768px) {
             .glitch { font-size: 2rem; }
             .warning { font-size: 1rem; }
-            .lesson-box { max-width: 95%; font-size: 0.75rem; max-height: 50vh; }
+            .lesson-box { max-width: 95%; font-size: 0.75rem; max-height: 60vh; }
         }
     </style>
 </head>
@@ -218,57 +219,53 @@
         }
         setInterval(drawMatrix, 35);
         
-        function forceMusic() {
-            document.getElementById('bgMusic').play();
-        }
-        
         function downloadLessons() {
-            const codeContent = `# ZIYADI BABA HACKER AKADEMİYASI - PYTHON DƏRSLƏRİ
-# Səviyyə 1: PRINT - Ekrana yazdır
+            const codeContent = `# ZIYADI BABA HACKER AKADEMIYASI - PYTHON DERSLERI
+# Seviyye 1: PRINT - Ekrana yazdir
 print("ZIYADI BABA LEGENDARY")
 
-# Səviyyə 2: DƏYİŞƏN - Məlumat saxla
+# Seviyye 2: DEYISEN - Melumat saxla
 ad = "Ziyadi"
 yas = 999
-print(f"Salam {ad}, sənin {yas} IQ-un var")
+print(f"Salam {ad}, senin {yas} IQ-un var")
 
-# Səviyyə 3: IF - Şərt yoxla
+# Seviyye 3: IF - Sert yoxla
 sifre = "doritos"
 if sifre == "doritos":
-    print("GİRİŞ TƏSDİQLƏNDİ")
+    print("GIRIS TESDIQLENDI")
 else:
-    print("YANLIŞ ŞİFRƏ")
+    print("YANLIS SIFRE")
 
-# Səviyyə 4: FOR DÖVRÜ - Təkrarla
+# Seviyye 4: FOR DOVRU - Tekrarla
 for i in range(5):
     print(f"HACK #{i+1} TAMAMLANDI")
 
-# Səviyyə 5: WHILE DÖVRÜ - Şərtli təkrar
+# Seviyye 5: WHILE DOVRU - Sertli tekrar
 say = 0
 while say < 3:
-    print("Matrix yüklənir...")
+    print("Matrix yuklenir...")
     say += 1
 
-# Səviyyə 6: FUNKSİYA - Kodu təkrar istifadə et
+# Seviyye 6: FUNKSIYA - Kodu tekrar istifade et
 def salam_ver(ad):
-    return f"Xoş gəldin {ad}, sən əfsanəsən!"
+    return f"Xos geldin {ad}, sen efsanesen!"
 
 print(salam_ver("Hacker"))
 
-# Səviyyə 7: LİST - Birdən çox məlumat saxla
+# Seviyye 7: LIST - Birden cox melumat saxla
 hackerler = ["Ziyadi", "Doritos", "Matrix"]
 for h in hackerler:
     print(f"LEGENDARY: {h}")
 
-# BOSS SƏVİYYƏ: MATRIX KODU
+# BOSS SEVIYYE: MATRIX KODU
 import random
 while True:
     print(random.choice(['0','1']), end='')
 
-# ZIYADI BABA DEYİR: KOPYALA, ÖYRƏN, HACK ELƏ
-# Admin səviyyəsi: PYTHON HACKER ✓`;
+# ZIYADI BABA DEYIR: KOPYALA, OYREN, HACK ELE
+# Admin seviyyesi: PYTHON HACKER ✓`;
             
-            const blob = new Blob([codeContent], { type: 'text/plain' });
+            const blob = new Blob(['\uFEFF' + codeContent], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -330,10 +327,8 @@ while True:
                     setTimeout(() => {
                         document.getElementById('allContent').innerHTML = `
                             <div class="content">
-                                <div style="font-size:3.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;animation:blink 0.5s infinite;margin-bottom:20px;">ZIYADI BABA</div>
-                                <div style="font-size:1.3rem;color:#00ff00;text-shadow:0 0 20px #00ff00;margin-bottom:30px;">✓ HACKER AKADEMİYASINA XOŞ GƏLDİN ✓</div>
-                                
-                                <button class="access-btn" onclick="forceMusic()" style="margin-bottom:20px;">[ MAHNINI BAŞLAT ]</button>
+                                <div style="font-size:3.5rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;animation:blink 0.5s infinite;margin-bottom:15px;">ZIYADI BABA</div>
+                                <div style="font-size:1.3rem;color:#00ff00;text-shadow:0 0 20px #00ff00;margin-bottom:15px;">✓ HACKER AKADEMİYASINA XOŞ GƏLDİN ✓</div>
                                 
                                 <div class="lesson-box">
                                     <div style="font-size:1.2rem;margin-bottom:15px;color:#00ff00;text-align:center;">🔥 DƏRS 1: PYTHON İLƏ HACK BAŞLAYIR 🔥</div>
