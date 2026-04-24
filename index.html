@@ -30,7 +30,9 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .lesson-box::-webkit-scrollbar{width:8px}
 .lesson-box::-webkit-scrollbar-track{background:#000}
 .lesson-box::-webkit-scrollbar-thumb{background:#0f0}
-.code-block{background:#111;padding:10px;border-left:3px solid #0f0;font-family:monospace;margin:10px 0;white-space:pre-wrap}
+.code-block{background:#111;padding:10px;border-left:3px solid #0f0;font-family:monospace;margin:10px 0;white-space:pre-wrap;min-height:80px}
+.code-block::after{content:'▋';animation:cursor 1s infinite;color:#0f0}
+@keyframes cursor{0%,50%{opacity:1}51%,100%{opacity:0}}
 .stats-box{background:rgba(0,255,0,.1);border:2px solid #0f0;padding:15px;margin-bottom:15px;text-align:center;font-size:1.1rem;text-shadow:0 0 10px #0f0}
 .lesson-item{margin-bottom:25px;padding:15px;border:1px solid #030;transition:.3s}
 .lesson-item.completed{border:1px solid #0f0;background:rgba(0,255,0,.05);box-shadow:0 0 15px #0f0}
@@ -70,6 +72,7 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 <audio id="alarmSound"><source src="data:audio/wav;base64,UklGRjwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQgAAACAgICAgICAgICAgICAgICA" type="audio/wav"></audio>
 <audio id="scanSound"><source src="data:audio/wav;base64,UklGRlIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ4AAAAAAAD//wAA//8AAP//AAD//wAA" type="audio/wav"></audio>
 <audio id="successSound"><source src="data:audio/wav;base64,UklGRlIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ4AAAAAAAD//wAA//8AAP//AAD//wAA" type="audio/wav"></audio>
+<audio id="typeSound"><source src="data:audio/wav;base64,UklGRlIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ4AAAAAAAD//wAA//8AAP//AAD//wAA" type="audio/wav"></audio>
 <div id="allContent">
 <div class="content" id="mainContent">
 <div class="glitch">SİSTEMƏ SIZILIR</div>
@@ -137,6 +140,7 @@ function playBeep(){const s=$('#beepSound');s.currentTime=0;s.play().catch(e=>{}
 function playAlarm(){const s=$('#alarmSound');s.currentTime=0;s.play().catch(e=>{})}
 function playScan(){const s=$('#scanSound');s.currentTime=0;s.play().catch(e=>{})}
 function playSuccess(){const s=$('#successSound');s.currentTime=0;s.play().catch(e=>{})}
+function playType(){const s=$('#typeSound');s.currentTime=0;s.volume=0.3;s.play().catch(e=>{})}
 function vibrate(ms){if(navigator.vibrate)navigator.vibrate(ms)}
 function openEditor(){playBeep();$('#editorOverlay').classList.remove('hidden')}
 function closeEditor(){playBeep();$('#editorOverlay').classList.add('hidden')}
@@ -167,7 +171,22 @@ function saveName(){playBeep();const name=$('#nameInput').value.trim();if(name.l
 function updateStats(){const completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');const goldMedals=parseInt(localStorage.getItem('ziyadiGoldMedals')||'0');const total=8;const percent=Math.round(completed.length/total*100);$('#statsBox').innerHTML=`PROGRESS: ${completed.length}/${total} DƏRS | ${percent}% TAMAMLANDI | 🏅 ${goldMedals} QIZIL MEDAL`}
 function nextLesson(){if(currentLesson<8){playBeep();vibrate(50);currentLesson++;showLessons(localStorage.getItem('ziyadiHackerName'))}}
 function prevLesson(){if(currentLesson>1){playBeep();vibrate(50);currentLesson--;showLessons(localStorage.getItem('ziyadiHackerName'))}}
-function generateLesson(num){const lesson=lessons[num-1];const completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');const done=completed.includes(num);const isBoss=num===8&&completed.length===7;if(isBoss&&!localStorage.getItem('bossDone')){return`<div class="lesson-item boss"><div style="font-size:1.2rem;font-weight:900;margin-bottom:10px;color:#f00;text-shadow:0 0 15px #f00">💀 BOSS LEVEL: MASTER HACK 💀</div><div style="font-size:.9rem;color:#f00;margin-bottom:10px">Təbriklər! 7 dərsi keçdin. İndi əsl hack zamanı:</div><div class="code-block">${lesson.code}</div><div style="font-size:.85rem;color:#f00;margin-top:8px">${lesson.desc}</div><button class="boss-btn" onclick="playAlarm();vibrate(100);bossActivated()">[ BOSS-U MƏHV ET ]</button></div>`}return`<div class="lesson-item ${done?'completed':''}"><div style="font-size:1rem;font-weight:700;margin-bottom:10px;color:#0f0">${done?'✓ ':''}SƏVİYYƏ ${num}: ${lesson.title}</div><div class="code-block">${lesson.code}</div><div style="font-size:.85rem;color:#0f0;margin-top:8px">// ${lesson.desc}</div><button class="complete-btn ${done?'done':''}" onclick="playBeep();vibrate(50);${done?'':'completeLesson('+num+')'}" ${done?'disabled':''}>${done?'[ TAMAMLANDI ✓ ]':'[ DƏRSİ BİTİRDİM ]'}</button></div>`}
+
+function typeWriter(text, element, speed=30) {
+  let i = 0;
+  element.textContent = '';
+  function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      if(i % 3 === 0) playType();
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+
+function generateLesson(num){const lesson=lessons[num-1];const completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');const done=completed.includes(num);const isBoss=num===8&&completed.length===7;if(isBoss&&!localStorage.getItem('bossDone')){return`<div class="lesson-item boss"><div style="font-size:1.2rem;font-weight:900;margin-bottom:10px;color:#f00;text-shadow:0 0 15px #f00">💀 BOSS LEVEL: MASTER HACK 💀</div><div style="font-size:.9rem;color:#f00;margin-bottom:10px">Təbriklər! 7 dərsi keçdin. İndi əsl hack zamanı:</div><div class="code-block" id="codeBlock${num}"></div><div style="font-size:.85rem;color:#f00;margin-top:8px">${lesson.desc}</div><button class="boss-btn" onclick="playAlarm();vibrate(100);bossActivated()">[ BOSS-U MƏHV ET ]</button></div>`}return`<div class="lesson-item ${done?'completed':''}"><div style="font-size:1rem;font-weight:700;margin-bottom:10px;color:#0f0">${done?'✓ ':''}SƏVİYYƏ ${num}: ${lesson.title}</div><div class="code-block" id="codeBlock${num}"></div><div style="font-size:.85rem;color:#0f0;margin-top:8px">// ${lesson.desc}</div><button class="complete-btn ${done?'done':''}" onclick="playBeep();vibrate(50);${done?'':'completeLesson('+num+')'}" ${done?'disabled':''}>${done?'[ TAMAMLANDI ✓ ]':'[ DƏRSİ BİTİRDİM ]'}</button></div>`}
 function completeLesson(num){playSuccess();vibrate(100);let completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');if(!completed.includes(num)){completed.push(num);localStorage.setItem('ziyadiCompleted',JSON.stringify(completed));const name=localStorage.getItem('ziyadiHackerName');updateStats();showLessons(name);if(completed.length===8){playAlarm();vibrate([200,100,200]);setTimeout(()=>{alert('🔥 BOSS LEVEL AÇILDI! 🔥\n\n8 dərsin hamısını bitirdin!')},500)}}}
 function bossActivated(){playAlarm();vibrate([300,100,300]);localStorage.setItem('bossDone','true');localStorage.setItem('ziyadiCompleted',JSON.stringify([1,2,3,4,5,6,7,8]));const name=localStorage.getItem('ziyadiHackerName');let goldMedals=parseInt(localStorage.getItem('ziyadiGoldMedals')||'0');goldMedals+=10;localStorage.setItem('ziyadiGoldMedals',goldMedals);alert('💀 BOSS MƏHV EDİLDİ 💀\n\nTəbriklər '+name+'!\nSən MASTER HACKER oldun!\n\n🏅 +10 QIZIL MEDAL');showLessons(name)}
 
@@ -184,6 +203,13 @@ setTimeout(()=>{$('#scanBox').innerHTML='✓ SİSTEM TƏMİZDİR - ZIYADI BABA Q
 // REAL IP
 const data = await getRealIP();
 $('#ipTracker').innerHTML = `👁️ SƏNİN IP: ${data.ip} | YER: ${data.city}, ${data.country} | BRAUZER: ${data.browser}<br>STATUS: ZIYADI BABA SƏNİ İZLƏYİR`;
+
+// TYPING EFFECT
+setTimeout(()=>{
+  const lesson = lessons[currentLesson-1];
+  const codeEl = $(`#codeBlock${currentLesson}`);
+  if(codeEl) typeWriter(lesson.code, codeEl, 25);
+}, 500);
 }
 
 async function initPyodide(){
