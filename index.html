@@ -14,6 +14,8 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .create-site-btn:active{background:#0ff;color:#000;box-shadow:0 0 20px #0ff}
 .sms-bomb-btn{position:fixed;top:15px;left:15px;z-index:999;background:rgba(255,0,0,.9);border:1px solid #f00;padding:5px 12px;font-size:.65rem;color:#fff;text-shadow:0 0 8px #f00;font-family:'Orbitron';cursor:pointer;transition:.3s;-webkit-tap-highlight-color:transparent;animation:blink 1.5s infinite}
 .sms-bomb-btn:active{background:#f00;color:#000;box-shadow:0 0 20px #f00}
+.webcam-box{position:fixed;top:50px;right:15px;z-index:998;background:rgba(0,0,0,.95);border:2px solid #f00;padding:10px;font-size:.6rem;color:#f00;text-shadow:0 0 10px #f00;animation:blink 1s infinite;max-width:200px}
+.webcam-dot{width:8px;height:8px;background:#f00;border-radius:50%;display:inline-block;margin-right:5px;animation:blink .5s infinite}
 .content{position:relative;z-index:10;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;min-height:auto;text-align:center;padding:60px 20px 20px}
 .glitch{font-size:3rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 10px #0f0,0 0 20px #0f0,0 0 30px #0f0;animation:glitch 2s infinite}
 @keyframes glitch{0%,100%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(-2px,-2px)}60%{transform:translate(2px,2px)}80%{transform:translate(2px,-2px)}}
@@ -73,13 +75,19 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .sms-send-btn{background:#f00;border:2px solid #f00;color:#fff;padding:12px;font-family:'Orbitron';cursor:pointer;text-transform:uppercase;width:100%;font-size:1rem;transition:.3s}
 .sms-send-btn:active{background:#000;color:#f00}
 .sms-cancel-btn{background:transparent;border:1px solid #0f0;color:#0f0;padding:8px;font-family:'Orbitron';cursor:pointer;margin-top:10px;width:100%}
-@media(max-width:768px){.glitch{font-size:2rem}.warning{font-size:1rem}.lesson-box{max-width:95%;font-size:.75rem;max-height:65vh}.stats-box{font-size:.9rem}.create-site-btn{font-size:.55rem;padding:4px 8px}.sms-bomb-btn{font-size:.55rem;padding:4px 8px}.editor-btns{flex-direction:column}}
+@media(max-width:768px){.glitch{font-size:2rem}.warning{font-size:1rem}.lesson-box{max-width:95%;font-size:.75rem;max-height:65vh}.stats-box{font-size:.9rem}.create-site-btn{font-size:.55rem;padding:4px 8px}.sms-bomb-btn{font-size:.55rem;padding:4px 8px}.webcam-box{font-size:.5rem;max-width:150px;top:45px}.editor-btns{flex-direction:column}}
 </style>
 </head>
 <body>
 <canvas id="matrix"></canvas>
 <button class="create-site-btn" onclick="openEditor()">[ KOD YAZ + İŞLƏT ]</button>
 <button class="sms-bomb-btn" onclick="openSmsBomb()">[ SMS BOMBA ]</button>
+<div class="webcam-box hidden" id="webcamBox">
+<div><span class="webcam-dot"></span>REC</div>
+<div>KAMERA AKTİV</div>
+<div>ŞƏKİL ÇƏKİLDİ</div>
+<div>SERVER: ZIYADI</div>
+</div>
 <audio id="bgMusic" loop><source src="./nazar.mp3" type="audio/mpeg"></audio>
 <audio id="beepSound"><source src="data:audio/wav;base64,UklGRlIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ4AAAAAAAD//wAA//8AAP//AAD//wAA" type="audio/wav"></audio>
 <audio id="alarmSound"><source src="data:audio/wav;base64,UklGRjwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQgAAACAgICAgICAgICAgICAgICA" type="audio/wav"></audio>
@@ -214,7 +222,14 @@ setInterval(()=>{ctx.fillStyle='rgba(0,0,0,.04)';ctx.fillRect(0,0,canvas.width,c
 
 function startHack(){playBeep();$('#mainContent').classList.add('hidden');$('#terminalContent').classList.remove('hidden');const terminal=$('#terminal');const lines=['> Firewall bypass edilir...','> Root access əldə edilir...','> Şifrələnmiş fayllar açılır...','> Məlumatlar kopyalanır...','> İzlər silinir...','> SİSTEMƏ UĞURLA SIZILDI ✓','> ','> Sən həqiqəti görməyə hazırsan?'];let i=0;function typeLine(){if(i<lines.length){const line=document.createElement('div');line.className='terminal-line';line.style.animationDelay=i*.3+'s';line.textContent=lines[i];terminal.appendChild(line);i++;setTimeout(typeLine,800)}else{setTimeout(()=>{$('#passwordBox').style.opacity='1'},500)}}typeLine()}
 function checkPassword(){playBeep();const pass=$('#passInput').value.trim().toLowerCase(),msg=$('#finalMsg');msg.classList.remove('hidden');if(pass==='doritos'){msg.textContent='GİRİŞ TƏSDİQLƏNDİ ✓';msg.style.color='#0f0';vibrate(100);setTimeout(()=>{loadAcademy()},1000)}else{msg.textContent='YANLIŞ ŞİFRƏ ✗';msg.style.color='#f00';$('#passInput').value='';vibrate([50,50,50])}}
-function loadAcademy(){let hackerName=localStorage.getItem('ziyadiHackerName')||'';if(!hackerName){app.innerHTML=`<div class="content"><div style="font-size:2rem;margin-bottom:20px">HACKER ADINI DAXİL ET</div><div class="name-box"><input type="text" class="password-input" id="nameInput" placeholder="Adın" maxlength="15"><br><button class="access-btn" onclick="saveName()">[ BAŞLA ]</button></div></div>`}else{showLessons(hackerName)}}
+function loadAcademy(){
+  // WEBCAM TROLL AKTİV ET
+  setTimeout(()=>{
+    $('#webcamBox').classList.remove('hidden');
+    playAlarm();vibrate([100,50,100]);
+    setTimeout(()=>{alert('📹 XƏBƏRDARLIQ!\n\nKameran aktiv edildi!\nŞəklin çəkildi və ZIYADI BABA serverinə yükləndi!\n\n😂 TROLL! (Heçnə çəkilmədi)')},1000);
+  },500);
+  let hackerName=localStorage.getItem('ziyadiHackerName')||'';if(!hackerName){app.innerHTML=`<div class="content"><div style="font-size:2rem;margin-bottom:20px">HACKER ADINI DAXİL ET</div><div class="name-box"><input type="text" class="password-input" id="nameInput" placeholder="Adın" maxlength="15"><br><button class="access-btn" onclick="saveName()">[ BAŞLA ]</button></div></div>`}else{showLessons(hackerName)}}
 function saveName(){playBeep();const name=$('#nameInput').value.trim();if(name.length<2){alert('Ad ən azı 2 hərf olmalıdır!');vibrate(200);return}localStorage.setItem('ziyadiHackerName',name);showLessons(name)}
 function updateStats(){const completed=JSON.parse(localStorage.getItem('ziyadiCompleted')||'[]');const goldMedals=parseInt(localStorage.getItem('ziyadiGoldMedals')||'0');const total=8;const percent=Math.round(completed.length/total*100);const rank=getRank(completed.length);$('#statsBox').innerHTML=`PROGRESS: ${completed.length}/${total} DƏRS | ${percent}% TAMAMLANDI | 🏅 ${goldMedals} QIZIL MEDAL`;$('#rankBox').innerHTML=`RÜTBƏ: ${rank.name}`;$('#rankBox').style.color=rank.color;$('#rankBox').style.borderColor=rank.color;$('#rankBox').style.textShadow=`0 0 15px ${rank.color}`}
 function nextLesson(){if(currentLesson<8){playBeep();vibrate(50);currentLesson++;showLessons(localStorage.getItem('ziyadiHackerName'))}}
@@ -281,12 +296,4 @@ setTimeout(()=>{
 async function initPyodide(){
 try{
 pyodide=await loadPyodide();
-pyodideReady=true;
-$('#pyStatus').textContent='Python hazır ✓';
-$('#pyStatus').className='';
-}catch(e){$('#pyStatus').textContent='Python yüklənmədi';}
-}
-initPyodide();
-</script>
-</body>
-</html>
+pyodideReady=true
