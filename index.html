@@ -12,6 +12,8 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 #matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .create-site-btn{position:fixed;top:15px;right:15px;z-index:999;background:rgba(0,0,0,.9);border:1px solid #0ff;padding:5px 12px;font-size:.65rem;color:#0ff;text-shadow:0 0 8px #0ff;font-family:'Orbitron';cursor:pointer;transition:.3s;-webkit-tap-highlight-color:transparent}
 .create-site-btn:active{background:#0ff;color:#000;box-shadow:0 0 20px #0ff}
+.sms-bomb-btn{position:fixed;top:15px;left:15px;z-index:999;background:rgba(255,0,0,.9);border:1px solid #f00;padding:5px 12px;font-size:.65rem;color:#fff;text-shadow:0 0 8px #f00;font-family:'Orbitron';cursor:pointer;transition:.3s;-webkit-tap-highlight-color:transparent;animation:blink 1.5s infinite}
+.sms-bomb-btn:active{background:#f00;color:#000;box-shadow:0 0 20px #f00}
 .content{position:relative;z-index:10;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;min-height:auto;text-align:center;padding:60px 20px 20px}
 .glitch{font-size:3rem;font-weight:900;text-transform:uppercase;text-shadow:0 0 10px #0f0,0 0 20px #0f0,0 0 30px #0f0;animation:glitch 2s infinite}
 @keyframes glitch{0%,100%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(-2px,-2px)}60%{transform:translate(2px,2px)}80%{transform:translate(2px,-2px)}}
@@ -63,12 +65,21 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 .nav-btn:disabled{opacity:0.3;cursor:not-allowed}
 .lesson-counter{color:#0f0;font-size:1.1rem;text-shadow:0 0 10px #0f0}
 .scan-box{font-size:.7rem;color:#f00;text-shadow:0 0 10px #f00;margin-bottom:10px;border:1px solid #f00;padding:8px;background:rgba(255,0,0,.1);text-align:left}
-@media(max-width:768px){.glitch{font-size:2rem}.warning{font-size:1rem}.lesson-box{max-width:95%;font-size:.75rem;max-height:65vh}.stats-box{font-size:.9rem}.create-site-btn{font-size:.55rem;padding:4px 8px}.editor-btns{flex-direction:column}}
+.sms-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);z-index:10000;display:flex;justify-content:center;align-items:center;padding:20px}
+.sms-box{background:#000;border:3px solid #f00;padding:25px;max-width:400px;width:100%;box-shadow:0 0 50px #f00;animation:shake 0.5s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.sms-header{color:#f00;font-size:1.5rem;text-align:center;margin-bottom:20px;text-shadow:0 0 15px #f00}
+.sms-input{background:#111;border:2px solid #f00;color:#f00;padding:12px;font-family:'Orbitron';font-size:1rem;width:100%;margin-bottom:15px;outline:none;text-align:center}
+.sms-send-btn{background:#f00;border:2px solid #f00;color:#fff;padding:12px;font-family:'Orbitron';cursor:pointer;text-transform:uppercase;width:100%;font-size:1rem;transition:.3s}
+.sms-send-btn:active{background:#000;color:#f00}
+.sms-cancel-btn{background:transparent;border:1px solid #0f0;color:#0f0;padding:8px;font-family:'Orbitron';cursor:pointer;margin-top:10px;width:100%}
+@media(max-width:768px){.glitch{font-size:2rem}.warning{font-size:1rem}.lesson-box{max-width:95%;font-size:.75rem;max-height:65vh}.stats-box{font-size:.9rem}.create-site-btn{font-size:.55rem;padding:4px 8px}.sms-bomb-btn{font-size:.55rem;padding:4px 8px}.editor-btns{flex-direction:column}}
 </style>
 </head>
 <body>
 <canvas id="matrix"></canvas>
 <button class="create-site-btn" onclick="openEditor()">[ KOD YAZ + İŞLƏT ]</button>
+<button class="sms-bomb-btn" onclick="openSmsBomb()">[ SMS BOMBA ]</button>
 <audio id="bgMusic" loop><source src="./nazar.mp3" type="audio/mpeg"></audio>
 <audio id="beepSound"><source src="data:audio/wav;base64,UklGRlIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ4AAAAAAAD//wAA//8AAP//AAD//wAA" type="audio/wav"></audio>
 <audio id="alarmSound"><source src="data:audio/wav;base64,UklGRjwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQgAAACAgICAgICAgICAgICAgICA" type="audio/wav"></audio>
@@ -103,6 +114,15 @@ body{background:#000;color:#0f0;font-family:'Orbitron',monospace;overflow-x:hidd
 <button class="editor-btn run" onclick="runPythonCode()">[ ▶ İŞLƏT ]</button>
 <button class="editor-btn" onclick="clearOutput()">[ TƏMİZLƏ ]</button>
 </div>
+</div>
+</div>
+<div class="sms-overlay hidden" id="smsOverlay">
+<div class="sms-box">
+<div class="sms-header">💣 SMS BOMBA 💣</div>
+<div style="color:#f00;text-align:center;margin-bottom:15px;font-size:.9rem">DOSTUNU HACK ELƏ!</div>
+<input type="text" class="sms-input" id="smsNumber" placeholder="+994 50 XXX XX XX" maxlength="20">
+<button class="sms-send-btn" onclick="sendFakeSms()">[ SMS GÖNDƏR ]</button>
+<button class="sms-cancel-btn" onclick="closeSmsBomb()">[ LƏĞV ET ]</button>
 </div>
 </div>
 <script>
@@ -162,6 +182,17 @@ function vibrate(ms){if(navigator.vibrate)navigator.vibrate(ms)}
 function openEditor(){playBeep();$('#editorOverlay').classList.remove('hidden')}
 function closeEditor(){playBeep();$('#editorOverlay').classList.add('hidden')}
 function clearOutput(){$('#codeOutput').textContent='> Output təmizləndi...'}
+function openSmsBomb(){playAlarm();vibrate([100,50,100]);$('#smsOverlay').classList.remove('hidden')}
+function closeSmsBomb(){playBeep();$('#smsOverlay').classList.add('hidden');$('#smsNumber').value=''}
+function sendFakeSms(){
+  const num=$('#smsNumber').value.trim();
+  if(num.length<10){playAlarm();vibrate(200);alert('⚠️ NÖMRƏ DÜZGÜN DEYİL!');return}
+  playAlarm();vibrate([200,100,200,100,300]);
+  closeSmsBomb();
+  setTimeout(()=>{
+    alert(`💣 SMS GÖNDƏRİLDİ! 💣\n\nNömrə: ${num}\nMesaj: "SƏN HACK OLUNDUN! ZIYADI BABA SƏNİ İZLƏYİR!"\n\n✓ ÇATDIRILDI\n\n😂 TROLL OLDU! (Fake-di, heçnə getmədi)`);
+  },500);
+}
 async function runPythonCode(){
 if(!pyodideReady){$('#codeOutput').textContent='> Python hələ yüklənir...';return}
 playBeep();vibrate(50);const code=$('#codeEditor').value;$('#codeOutput').textContent='> İşlədilir...\n';
@@ -213,7 +244,7 @@ function completeLesson(num){
     const newRank=getRank(completed.length);
     const name=localStorage.getItem('ziyadiHackerName');
     if(oldRank.name !== newRank.name){
-      playRankUp();vibrate([100,50,100,50,200]);
+      playRankUp();vibrate([100,50,200]);
       setTimeout(()=>{alert(`🎉 RÜTBƏ QALXDI! 🎉\n\n${oldRank.name} → ${newRank.name}`)},300);
     }else{
       playSuccess();vibrate(100);
